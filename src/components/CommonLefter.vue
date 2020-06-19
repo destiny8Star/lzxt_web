@@ -46,7 +46,6 @@
 <script>
     import ico_sc from '../assets/img/sc.svg'
     import ico_mp from '../assets/img/mp.svg'
-    import ico_wm from '../assets/img/wm.svg'
 
     export default {
         name: "CommonLefter",

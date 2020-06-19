@@ -1,30 +1,26 @@
 <template>
 	<div class="main-top">
 		<div class="first-nav-logo">
-			<img :src="oemData.pc_back_logo ? oemData.pc_back_logo : logoUrl" class="nav-logo">
+			<img :src="logoUrl" class="nav-logo">
 		</div>
-		<!--<div class="search" id="search">
+		<div class="search" id="search">
 			<div class="search-content">
-				<i class="el-icon-search" style="color: #838383; font-size: 20px;padding-top: 19px;"></i>
-				<input type="text" class="input-search" placeholder="搜索" value="" />
+				在线练习系统
 			</div>
-		</div>-->
+		</div>
 		<div class="tool">
-			<!--<div class="tool-icon">
-				<i class="el-icon-setting"></i>
-			</div>
-			<div class="tool-icon">
-				<i class="el-icon-bell"></i>
-				&lt;!&ndash; <el-badge :value="5" class="item">
-                    <i class="el-icon-bell"></i>
-                </el-badge> &ndash;&gt;
-			</div>
-			<div class="tool-icon">
-				<i class="el-icon-message"></i>
-			</div>-->
+				<div style="color:#105CFB;" @click="showAdd">
+					<i class="el-icon-location-information"></i>
+					地址管理
+					<!-- <el-cascader
+						v-model="value"
+						:options="options"
+						@change="handleChange"></el-cascader> -->
+				</div>
+			
 			<div class="tool-msg">
 <!--				<img src="../assets/img/tx.png" class="logo-img">-->
-				<span class="tool-msg-t">欢迎您：{{ name ? name : '商家' }}</span>
+				<span class="tool-msg-t">欢迎您：{{ name ? name : '用户' }}</span>
 				<el-dropdown @command="handleCommand">
 					<span class="el-dropdown-link">
 						<i class="el-icon-arrow-down el-icon--right"></i>
@@ -38,7 +34,24 @@
 			</div>
 			<el-link @click="outLog" :underline="false"  style="margin: 0 20px 0 0;">退出</el-link>
 		</div>
-
+        <!-- //地址表单 -->
+		<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+				<el-form :model="form">
+					<el-form-item label="活动名称" :label-width="formLabelWidth">
+					<el-input v-model="form.name" autocomplete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="活动区域" :label-width="formLabelWidth">
+					<el-select v-model="form.region" placeholder="请选择活动区域">
+						<el-option label="区域一" value="shanghai"></el-option>
+						<el-option label="区域二" value="beijing"></el-option>
+					</el-select>
+					</el-form-item>
+				</el-form>
+				<div slot="footer" class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+				</div>
+			</el-dialog>
 	</div>
 </template>
 
@@ -47,9 +60,25 @@
 		name: "CommonHeader",
 		data(){
 		    return {
+
                 name:  this.$ls.get("accountName"),
-                oemData: this.$ls.get(this.$webConfig.oemData) || {},
-                logoUrl: require('../assets/img/home/default_logo.png'),
+				logoUrl: require('../assets/image/logo.png'),
+				addValue:[],
+				options:[
+						{
+						value: 'zhinan',
+						label: '指南',
+						children: [
+							{
+								value: 'shejiyuanze',
+								label: '设计原则',
+								children: [{
+								value: 'yizhi',
+								label: '一致'
+								}]
+							}, 
+						],
+				},]
 			}
 		},
 		methods:{
@@ -58,7 +87,11 @@
                 if(command == 'a'){
                     this.$router.push('/account/change');
 				}
-            },
+			},
+			//点击选择地址
+			showAdd(){
+
+			},
 			/**
 			 *  退出登录
 			 */
@@ -96,7 +129,14 @@
 	}
 </script>
 <style>
+	.top_add{
+		display: flex;
+	}
 	.tool-msg-t {
 		width: auto;
+	}
+	.search-content{
+		font-size: 22px;
+		line-height: 60px;
 	}
 </style>

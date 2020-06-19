@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import homeRouter from './router/homeRouter'
-
+import exeRouter from './router/exeRouter'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -17,16 +17,16 @@ const router = new VueRouter({
                 file: "views/NotFound.vue",
             }
         },
-        {
-            path: '/logon',
-            name: 'logon',
-            component: () =>
-                import ( /* webpackChunkName: "logon" */ "./views/Logon.vue"),
-            meta: {
-                menu_name: "登陆",
-                file: "views/Logon.vue",
-            }
-        },
+        // {
+        //     path: '/logon',
+        //     name: 'logon',
+        //     component: () =>
+        //         import ( /* webpackChunkName: "logon" */ "./views/Logon.vue"),
+        //     meta: {
+        //         menu_name: "登陆",
+        //         file: "views/Logon.vue",
+        //     }
+        // },
         {
             path: '/',
             name: 'home',
@@ -38,6 +38,18 @@ const router = new VueRouter({
                 file: "views/home/Index.vue",
             },
             children: [...homeRouter, ]
+        },
+        {
+            path: '/exercises',
+            name: 'exercises',
+            redirect: "/exercises/home",
+            component: () =>
+                import ( /* webpackChunkName: "home" */ "./views/exercises/Index.vue"),
+            meta: {
+                menu_name: "练习",
+                file: "views/exercise/Index.vue",
+            },
+            children: [...exeRouter, ]
         },
         // {
         //     path: '/merchant',
