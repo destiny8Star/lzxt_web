@@ -22,10 +22,13 @@
               </router-link>
             </div>
             <div class="product-item">
-              <div class="product-item__title">行业与场景</div>
-              <router-link to="/" class="product-item__func">
-                <div class="product-item__name">知识付费</div>
-                <div class="product-item__tip">在线课堂、小鹅打卡、训练营</div>
+              <div class="product-item__title">习题练习</div>
+              <router-link to="/exercises" class="product-item__func">
+                <div class="product-item__name">历史</div>
+              </router-link>
+              <router-link to="/exercises" class="product-item__func">
+                <div class="product-item__name">化学</div>
+                <!-- <div class="product-item__tip">历史</div> -->
               </router-link>
             </div>
             <div class="product-item">

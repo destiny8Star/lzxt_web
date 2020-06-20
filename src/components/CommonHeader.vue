@@ -1,7 +1,7 @@
 <template>
 	<div class="main-top">
-		<div class="first-nav-logo">
-			<img :src="logoUrl" class="nav-logo">
+		<div class="first-nav-logo" style=" cursor: pointer;">
+			<img :src="logoUrl" class="nav-logo" @click="$router.push('/home')">
 		</div>
 		<div class="search" id="search">
 			<div class="search-content">
@@ -11,7 +11,7 @@
 		<div class="tool">
 				<div style="color:#105CFB;" @click="showAdd">
 					<i class="el-icon-location-information"></i>
-					地址管理
+					{{address}}
 					<!-- <el-cascader
 						v-model="value"
 						:options="options"
@@ -27,7 +27,7 @@
 						<i style="display: inline-block;width: 10px;height: 10px;"></i>
 					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item command="a">修改密码</el-dropdown-item>
+						<el-dropdown-item command="a">个人信息</el-dropdown-item>
 						<!--<el-dropdown-item command="b">退出登录</el-dropdown-item>-->
 					</el-dropdown-menu>
 				</el-dropdown>
@@ -35,61 +35,69 @@
 			<el-link @click="outLog" :underline="false"  style="margin: 0 20px 0 0;">退出</el-link>
 		</div>
         <!-- //地址表单 -->
-		<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-				<el-form :model="form">
-					<el-form-item label="活动名称" :label-width="formLabelWidth">
-					<el-input v-model="form.name" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="活动区域" :label-width="formLabelWidth">
-					<el-select v-model="form.region" placeholder="请选择活动区域">
-						<el-option label="区域一" value="shanghai"></el-option>
-						<el-option label="区域二" value="beijing"></el-option>
-					</el-select>
+		<el-dialog  :visible.sync="dialogFormVisible">
+				<el-form >
+					<el-form-item label="请选择地址" label-width="120px">
+						<el-cascader
+							v-model="addValue"
+							:options="options"
+							width="300px"></el-cascader>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
 					<el-button @click="dialogFormVisible = false">取 消</el-button>
-					<el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+					<el-button type="primary" @click="changeAdd">确 定</el-button>
 				</div>
 			</el-dialog>
 	</div>
 </template>
 
 <script>
+    import AddOptions from "@/plugins/address"
 	export default {
 		name: "CommonHeader",
 		data(){
 		    return {
-
+				dialogFormVisible:false,//是否展示选择地址
                 name:  this.$ls.get("accountName"),
 				logoUrl: require('../assets/image/logo.png'),
-				addValue:[],
-				options:[
-						{
-						value: 'zhinan',
-						label: '指南',
-						children: [
-							{
-								value: 'shejiyuanze',
-								label: '设计原则',
-								children: [{
-								value: 'yizhi',
-								label: '一致'
-								}]
-							}, 
-						],
-				},]
+				addValue:[],//选中的地址
+				address:"地址",//展示地址
+				options:AddOptions,
+				// options:[
+				// 		{
+				// 		value: 'zhinan',
+				// 		label: '指南',
+				// 		children: [
+				// 			{
+				// 				value: 'shejiyuanze',
+				// 				label: '设计原则',
+				// 				children: [{
+				// 				value: 'yizhi',
+				// 				label: '一致'
+				// 				}]
+				// 			}, 
+				// 		],
+				// },]
 			}
 		},
 		methods:{
             handleCommand(command) {
                 console.log('click on item ' + command);
                 if(command == 'a'){
-                    this.$router.push('/account/change');
+                    this.$router.push('/exercises/myInfo');
 				}
 			},
 			//点击选择地址
 			showAdd(){
+             this.dialogFormVisible = true
+			},
+			//选中地址
+			changeAdd() {
+				console.log(this.addValue);
+				if(!this.addValue[2]) return this.$message.error("请选择")
+				this.address = this.addValue[0]+'-'+this.addValue[1]+'-'+this.addValue[2]
+            	this.dialogFormVisible = false
 
 			},
 			/**
@@ -138,5 +146,11 @@
 	.search-content{
 		font-size: 22px;
 		line-height: 60px;
+	}
+	.el-cascader{
+		width: 300px;
+	}
+	.el-cascader .el-input__inner{
+		width: 300px;
 	}
 </style>

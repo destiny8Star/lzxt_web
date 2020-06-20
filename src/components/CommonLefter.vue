@@ -14,13 +14,13 @@
                             </el-menu-item>
                             <el-menu-item :index="navItem.url" v-else-if="!navItem.children && navItem.url!=='#'" >
                                 <template slot="title">
-                                    <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg">
+                                    <!-- <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg"> -->
                                     <span>{{navItem.name}}</span>
                                 </template>
                             </el-menu-item>
                             <el-submenu :index="navItem.depth+'-'+navItem.id" v-else>
                                 <template slot="title">
-                                    <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg">
+                                    <!-- <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg"> -->
                                     <span>{{navItem.name}}</span>
                                 </template>
                                 <template v-for="childItem in navItem.children">
@@ -59,7 +59,7 @@
                         "depth": 1,
                         "parent_id": 0,
                         "name": "首页",
-                        "url": "/home",
+                        "url": "/exercises/home",
                         "menu_type": 1,
                         "ico_url": "mshanghu@2x.png",
                     },
@@ -68,315 +68,43 @@
                         "menu_order": 1,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "资金管理",
-                        "url": "",
+                        "name": "我的课程",
+                        "url": "/exercises/myClass",
                         "menu_type": 1,
                         "ico_url": "zijin@2x.png",
-                        "children": [
-                            {
-                                "id": 3,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 2,
-                                "name": "账单列表",
-                                "url": "/bill/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 4,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 2,
-                                "name": "账单汇总",
-                                "url": "/bill/collect",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ],
                     },
                     {
                         "id": 5,
                         "menu_order": 1,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "门店管理",
-                        "url": "",
+                        "name": "我的练习",
+                        "url": "/exercises/myExe",
                         "menu_type": 1,
                         "ico_url": "mendian@2x.png",
-                        "children": [
-                            {
-                                "id": 6,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 5,
-                                "name": "我的门店",
-                                "url": "/store/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 7,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 5,
-                                "name": "添加门店",
-                                "url": "/store/add",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 8,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 5,
-                                "name": "员工管理",
-                                "url": "/user/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 14,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 5,
-                                "name": "角色管理",
-                                "url": "/store/role",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
+                       
                     },
                     {
                         "id": 20,
                         "menu_order": 0,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "会员营销",
-                        "url": "",
+                        "name": "错题本",
+                        "url": "/exercises/error",
                         "menu_type": 1,
                         "ico_url": "mshanghu@2x.png",
-                        "children": [
-                            {
-                                "id": 21,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "轻会员",
-                                "url": "/marketing/introduce",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 22,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "我的会员",
-                                "url": "/member/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 23,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "会员卡设置",
-                                "url": "/member/setUp",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 24,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "创建会员活动",
-                                "url": "/activity/index",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 25,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "会员活动列表",
-                                "url": "/activity/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 26,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "会员充值记录",
-                                "url": "/member/topUp",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 27,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "会员消费记录",
-                                "url": "/member/pay",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
-                    },
-                    {
-                        "id": 60,
-                        "menu_order": 0,
-                        "depth": 1,
-                        "parent_id": 0,
-                        "name": "卡券营销",
-                        "url": "",
-                        "menu_type": 1,
-                        "ico_url": "card@2x.png",
-                        "children": [
-                            {
-                                "id": 61,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 60,
-                                "name": "创建卡券",
-                                "url": "/coupon/setUp",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 62,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "卡券管理",
-                                "url": "/coupon/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 63,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "核销记录",
-                                "url": "/coupon/verification",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
-                    },
-                    {
-                        "id": 80,
-                        "menu_order": 0,
-                        "depth": 1,
-                        "parent_id": 0,
-                        "name": "营销活动",
-                        "url": "",
-                        "menu_type": 1,
-                        "ico_url": "bussiness@2x.png",
-                        "children": [
-                            {
-                                "id": 81,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 60,
-                                "name": "创建活动",
-                                "url": "/marketingActivity/index",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 82,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 20,
-                                "name": "活动列表",
-                                "url": "/marketingActivity/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
-                    },
-                    {
-                        "id": 70,
-                        "menu_order": 0,
-                        "depth": 1,
-                        "parent_id": 0,
-                        "name": "商圈管理",
-                        "url": "",
-                        "menu_type": 1,
-                        "ico_url": "mallmange@2x.png",
-                        "children": [
-                            {
-                                "id": 71,
-                                "menu_order": 0,
-                                "depth": 2,
-                                "parent_id": 70,
-                                "name": "我的商圈",
-                                "url": "/business/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
-                    },
-                    {
-                        "id": 9,
-                        "menu_order": 1,
-                        "depth": 1,
-                        "parent_id": 0,
-                        "name": "我的账户",
-                        "url": "",
-                        "menu_type": 1,
-                        "ico_url": "wode@2x.png",
-                        "children": [
-                            {
-                                "id": 10,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 9,
-                                "name": "商户信息",
-                                "url": "/account/info",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            },
-                            {
-                                "id": 11,
-                                "menu_order": 1,
-                                "depth": 2,
-                                "parent_id": 9,
-                                "name": "设备管理",
-                                "url": "/account/list",
-                                "menu_type": 1,
-                                "ico_url": ""
-                            }
-                        ]
+                       
                     },
                     {
                         "id": 12,
                         "menu_order": 1,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "联系我们",
-                        "url": "/contact",
+                        "name": "订单管理",
+                        "url": "/exercises/order",
                         "menu_type": 1,
                         "ico_url": "kefu@2x.png"
                     },
-                    {
-                        "id": 33,
-                        "menu_order": 1,
-                        "depth": 1,
-                        "parent_id": 0,
-                        "name": "APP下载",
-                        "url": "/download",
-                        "menu_type": 1,
-                        "ico_url": "download@2x.png"
-                    }
                 ],
                 defaultOpeneds: [],
             }
@@ -405,4 +133,8 @@
     .special-item span{color:#ffffff;}
     .special-item:hover{background: #108ee9;}
     .special-item:focus{background: #108ee9;}
+    .first-nav .el-menu-item {
+        text-align: center;
+        font-size: 20px;
+    }
 </style>
