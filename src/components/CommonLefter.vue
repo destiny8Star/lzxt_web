@@ -14,13 +14,13 @@
                             </el-menu-item>
                             <el-menu-item :index="navItem.url" v-else-if="!navItem.children && navItem.url!=='#'" >
                                 <template slot="title">
-                                    <!-- <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg"> -->
+                                    <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg">
                                     <span>{{navItem.name}}</span>
                                 </template>
                             </el-menu-item>
                             <el-submenu :index="navItem.depth+'-'+navItem.id" v-else>
                                 <template slot="title">
-                                    <!-- <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg"> -->
+                                    <img :src="require(`../assets/img/nav/${navItem.ico_url}`)" class="title-icon-svg">
                                     <span>{{navItem.name}}</span>
                                 </template>
                                 <template v-for="childItem in navItem.children">
@@ -58,10 +58,10 @@
                         "menu_order": 0,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "首页",
+                        "name": "练习首页 ",
                         "url": "/exercises/home",
                         "menu_type": 1,
-                        "ico_url": "mshanghu@2x.png",
+                        "ico_url": "shouye@2x.png",
                     },
                     {
                         "id": 2,
@@ -71,7 +71,7 @@
                         "name": "我的课程",
                         "url": "/exercises/myClass",
                         "menu_type": 1,
-                        "ico_url": "zijin@2x.png",
+                        "ico_url": "class.png",
                     },
                     {
                         "id": 5,
@@ -81,7 +81,7 @@
                         "name": "我的练习",
                         "url": "/exercises/myExe",
                         "menu_type": 1,
-                        "ico_url": "mendian@2x.png",
+                        "ico_url": "exe.png",
                        
                     },
                     {
@@ -89,10 +89,10 @@
                         "menu_order": 0,
                         "depth": 1,
                         "parent_id": 0,
-                        "name": "错题本",
+                        "name": "错 题 本",
                         "url": "/exercises/error",
                         "menu_type": 1,
-                        "ico_url": "mshanghu@2x.png",
+                        "ico_url": "error.png",
                        
                     },
                     {
@@ -103,7 +103,7 @@
                         "name": "订单管理",
                         "url": "/exercises/order",
                         "menu_type": 1,
-                        "ico_url": "kefu@2x.png"
+                        "ico_url": "zijin@2x.png"
                     },
                 ],
                 defaultOpeneds: [],
