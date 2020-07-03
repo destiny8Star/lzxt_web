@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export default {
     install: (Vue, options) => {
-        axios.defaults.baseURL = Vue.webConfig.apiHost;
+        // axios.defaults.baseURL = Vue.webConfig.apiHost;
+        process.env.NODE_ENV == "development" ? axios.defaults.baseURL = "/api" : axios.defaults.baseURL = Vue.webConfig.apiHost;
 
         /*请求过滤*/
         axios.interceptors.request.use(
@@ -21,8 +22,8 @@ export default {
         /*响应过滤*/
         axios.interceptors.response.use(
             response => {
-                if(response.headers[Vue.webConfig.authRefreshTokenName]){
-                    Vue.ls.set(Vue.webConfig.authTokenName,response.headers[Vue.webConfig.authRefreshTokenName]);
+                if (response.headers[Vue.webConfig.authRefreshTokenName]) {
+                    Vue.ls.set(Vue.webConfig.authTokenName, response.headers[Vue.webConfig.authRefreshTokenName]);
                 }
                 switch (response.data.code) {
                     case Vue.webConfig.httpSuccessStatus:
@@ -30,8 +31,8 @@ export default {
                     case Vue.webConfig.loginExpire:
                         let authName = Vue.webConfig.authTokenName;
                         Vue.ls.remove(authName);
-                        Vue.ls.clear();//清除所有
-                        options.router.push({path: "/"});
+                        Vue.ls.clear(); //清除所有
+                        options.router.push({ path: "/" });
                         break;
                     case Vue.webConfig.permissionDenied:
                         options.element.Message({

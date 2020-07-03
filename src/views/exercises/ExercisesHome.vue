@@ -30,7 +30,7 @@
                                 </el-form-item>
                             </el-form>
                         </div>    
-                        <block v-for="item in 3">
+                        <template v-for="item in 3">
                             <div class="home-title" style="margin: 20px 0">
                             <span class="home-title-t ly-title">初一</span>
                             </div>
@@ -47,7 +47,7 @@
                                 </el-card>
                             </el-card>
                         
-                        </block>    
+                        </template>    
                         
 
                     </div>
@@ -99,25 +99,24 @@
              */
             getDetail() {
                 //初始化列表
-                this.$axios.get('/mer/business/circle/detail?businessCircleId=' + this.businessId).then(res => {
-                    console.log(res);
-                    if (res.data.code === this.$webConfig.httpSuccessStatus) {
-                        let info = res.data.data;
-                    } else {
-                        this.$message(res.data.message);
-                    }
-                    this.searchState = false;
+                this.$axios.post('/subject/listSubject' ).then(res => {
+                    console.log("获取数据",res);
+                    // if (res.data.code === this.$webConfig.httpSuccessStatus) {
+                    //     let info = res.data.data;
+                    // } else {
+                    //     this.$message(res.data.message);
+                    // }
+                    // this.searchState = false;
                 })
-                    .catch(() => {
-                        this.searchState = false;
-                    });
+                .catch(() => {
+                    this.searchState = false;
+                });
             },
           
         },
         beforeMount() {
-          
             // 获取信息
-            // this.getDetail();
+            this.getDetail();
         },
     }
 </script>
