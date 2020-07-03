@@ -9,7 +9,7 @@ const webConfig = Object.freeze({
 
     authTokenName: "mer-auth",
     authTokenPrefix: "",
-    httpSuccessStatus: "200",
+    httpSuccessStatus: 2000000000,
     loginExpire: "200302",
     permissionDenied: "30002",
     authRefreshTokenName: "refresh-auth"

@@ -42,11 +42,11 @@ export default {
                         });
                         break;
                     default:
-                        console.log(response.data);
+                        // console.log( response.data);
                         break;
                 }
 
-                return response;
+                return Promise.reject(response);
             },
             error => {
                 console.log(error);

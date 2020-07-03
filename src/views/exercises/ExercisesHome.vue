@@ -101,15 +101,14 @@
                 //初始化列表
                 this.$axios.post('/subject/listSubject' ).then(res => {
                     console.log("获取数据",res);
-                    // if (res.data.code === this.$webConfig.httpSuccessStatus) {
                     //     let info = res.data.data;
-                    // } else {
-                    //     this.$message(res.data.message);
-                    // }
+                
                     // this.searchState = false;
                 })
-                .catch(() => {
+                .catch((rej) => {
+                    console.log("获取数据失败",rej)
                     this.searchState = false;
+                    this.$message.error(rej.data.message||"网络异常")
                 });
             },
           
