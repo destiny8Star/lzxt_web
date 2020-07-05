@@ -42,7 +42,16 @@
                                     <div class="card_inType">学期:上</div>
                                     <div class="card_inBot">
                                         <div class="card_inBot_left">已有222人加入</div>
-                                        <div class="card_inBot_right" @click="toExe">练习</div>
+                                        <!-- <div class="card_inBot_right" @click="toExe">练习</div> -->
+                                    </div>
+                                    <div class="card_mask">
+                                        <div class="card_inType">有效周期:365日</div>
+                                        <div class="card_inType">自购买之日起365日内，该课程可使用。</div>
+                                        <div class="card_inType">价格：335元</div>
+                                         <div class="card_mask_inBot">
+                                               <el-button type="primary" @click="toExe">试用</el-button>
+                                               <el-button type="success">购买</el-button>
+                                        </div>
                                     </div>
                                 </el-card>
                             </el-card>
@@ -86,9 +95,9 @@
             }
         },
         methods: {
-            //去练习 
+            //选择单元
             toExe(id){
-               this.$router.push("/exercises/doWork")
+               this.$router.push("choseUnit")
             },
            //    查询
            submitForm(){
@@ -130,7 +139,9 @@
          width: 300px; 
          margin: 20px;
          background: #efefef;
+         position: relative;
     }
+  
     .card_inTit{
         font-size: 20px;
         font-weight: bold;
@@ -169,5 +180,25 @@
     }
     .el-breadcrumb__item {
         float: none;
+    }
+    .card_mask{
+        background: rgba(92,48,125, 1);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity:0;
+        color: #fff;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .card_in:hover .card_mask{
+        opacity: 1;
+    }
+    .card_mask_inBot{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 </style>

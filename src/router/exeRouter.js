@@ -107,4 +107,16 @@ export default [
             file: "/exercises/MyInfo.vue",
         },
     },
+    //练习--选择单元
+    {
+        path: '/exercises/choseUnit',
+        name: 'choseUnit',
+        component: () =>
+            import ( /* webpackChunkName: "choseUnit" */ '../views/exercises/ChoseUnit.vue'),
+        meta: {
+            group_name: "选择单元",
+            menu_name: "choseUnit",
+            file: "/exercises/ChoseUnit.vue",
+        },
+    },
 ]

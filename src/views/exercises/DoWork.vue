@@ -13,19 +13,23 @@
                         <div class="home-title" >
                            <span class="home-title-t ly-title">初一历史（上）</span>
                         </div>
-                        <el-card style="margin: 20px 0" v-for="(item,ind) in list" :key="ind">
-                            <div class="card_inTit">
-                               {{item.title}}
-                            </div>
-                            <el-radio-group v-model="from['radio'+ind]">
-                                <el-radio :label="itemIn.key" v-for="itemIn in item.selctions" :key="itemIn.key">
-                                    {{itemIn.value}}
-                                </el-radio>
-                            </el-radio-group>
-                        </el-card>
-                        
-                        
-
+                        <div class="contBox">
+                            <el-card style="margin: 20px 0;max-width:60%" v-for="(item,ind) in list" :key="ind">
+                                <div class="card_inTit">
+                                {{item.title}}
+                                </div>
+                                <el-radio-group v-model="from['radio'+ind]">
+                                    <el-radio :label="itemIn.key" v-for="itemIn in item.selctions" :key="itemIn.key">
+                                        {{itemIn.value}}
+                                    </el-radio>
+                                </el-radio-group>
+                                <el-button type="primary" @click="goback">上一题</el-button>
+                                <el-button type="primary" @click="toNext">下一题</el-button>
+                            </el-card>
+                            <el-card style="margin: 20px 0;width:35%;background:#EBEEF5" >
+                                <SlideRecord></SlideRecord>
+                            </el-card>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,9 +38,12 @@
 </template>
 
 <script>
-
+    import SlideRecord from "@/components/SlideRecord.vue"
     export default {
         name: "Detail",
+        components:{
+            SlideRecord
+        },
         computed: {
             getWinHeight: function () {
                 return this.$winHeight;
@@ -66,27 +73,27 @@
                            },
                        ]
                    },
-                    {
-                       title:" 10.某纪录片拍摄组决定拍摄一系列节目 《中国原始人一探秘中 国文化之源》，其内容以时间顺序记录。此摄制组的第一站应为(     )。",
-                       selctions:[
-                           {
-                              key:"a",
-                              value:"第一个" 
-                           },
-                            {
-                              key:"b",
-                              value:"第一而已 发的规划个" 
-                           },
-                            {
-                              key:"c",
-                              value:"第一阿吃痴痴缠缠斯蒂芬斯蒂芬个" 
-                           },
-                            {
-                              key:"d",
-                              value:"第一个都是阿斯蒂芬是的" 
-                           },
-                       ]
-                   }
+                    // {
+                    //    title:" 10.某纪录片拍摄组决定拍摄一系列节目 《中国原始人一探秘中 国文化之源》，其内容以时间顺序记录。此摄制组的第一站应为(     )。",
+                    //    selctions:[
+                    //        {
+                    //           key:"a",
+                    //           value:"第一个" 
+                    //        },
+                    //         {
+                    //           key:"b",
+                    //           value:"第一而已 发的规划个" 
+                    //        },
+                    //         {
+                    //           key:"c",
+                    //           value:"第一阿吃痴痴缠缠斯蒂芬斯蒂芬个" 
+                    //        },
+                    //         {
+                    //           key:"d",
+                    //           value:"第一个都是阿斯蒂芬是的" 
+                    //        },
+                    //    ]
+                //    }
                ],//题数据
                from:{
                    radio0:"",
@@ -95,6 +102,14 @@
             }
         },
         methods: {
+            //上一题
+            goback(){
+
+            },
+            //下一体
+            toNext(){
+
+            },
             /**
              * 获取信息详情
              */
@@ -137,8 +152,16 @@
     .home-title .ly-title{
         font-size: 20px;
     }
-  
+    .el-radio{
+        width: 100%;
+        margin:10px 0;
+    }
     .el-breadcrumb__item {
         float: none;
+    }
+    .contBox{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 </style>
