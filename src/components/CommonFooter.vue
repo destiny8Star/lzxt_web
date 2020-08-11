@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="free" v-if="showBan">
+    <div class="free" v-if="showBan&&from!='back'">
       <el-carousel trigger="click" height="400px">
         <el-carousel-item v-for="(item,ind) in banners" :key="ind">
           <div class="i_banner_item">
@@ -207,6 +207,12 @@
 <script>
 export default {
   name: "CommonFooter",
+  props:{
+    from:{
+      type:String,
+      default:"front",
+    },
+  },
   data: function() {
     return {
       banners: [

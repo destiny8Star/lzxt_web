@@ -90,7 +90,7 @@
                         "depth": 1,
                         "parent_id": 0,
                         "name": "错 题 本",
-                        "url": "/exercises/error",
+                        "url": "/exercises/error/errorDetail",
                         "menu_type": 1,
                         "ico_url": "error.png",
                        

@@ -9,54 +9,42 @@
             </div>
             <div class="main-content" id="main-content" :style="{height: (getWinHeight-120)+'px'}">
                 <div class="main-feature">
-                    <div class="main-inner">
+                    <div class="main-inner" :loading="searchState">
                         <div class="industryBox">
                             <!-- 搜索条件 start -->
-                            <el-form  :inline="true" label-position="left" ref="form" :model="form" label-width="60px" >
-                                <el-form-item label="科目:" >
-                                   <el-select v-model="form.subject" placeholder="请选择">
-                                        <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                        >
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
-                        
-                                <el-form-item>
-                                    <el-button type="primary" @click="submitForm" size="small" v-loading="submitState">查询</el-button>
-                                </el-form-item>
-                            </el-form>
+                            <el-menu :default-active="tabIndex"  mode="horizontal" @select="tabSelect">
+                                <el-menu-item v-for="(ele,i) in tabList" :key="i" style="font-size:22px"
+                                 :index="ele.value">{{ele.label}}</el-menu-item>
+                            </el-menu>
                         </div>    
-                        <template v-for="item in 3">
-                            <div class="home-title" style="margin: 20px 0">
-                            <span class="home-title-t ly-title">初一</span>
-                            </div>
-                            <el-card  class="card_box">
-                                <el-card class="card_in" v-for="item in 4">
-                                    <div class="card_inTit">初一历史（上）</div>
-                                    <div class="card_inType">科目类型:历史</div>
-                                    <div class="card_inType">年级:初一</div>
-                                    <div class="card_inType">学期:上</div>
-                                    <div class="card_inBot">
-                                        <div class="card_inBot_left">已有222人加入</div>
-                                        <!-- <div class="card_inBot_right" @click="toExe">练习</div> -->
+                        <!-- <div class="home-title" style="margin: 20px 0">
+                             <span class="home-title-t ly-title">初一</span>
+                        </div> -->
+                        <el-card  class="card_box">
+                            <el-card class="card_in" v-for="(item,ind) in list" :key="ind">
+                                <div class="card_inTit">{{item.courseName}}</div>
+                                <div class="card_inType">科目类型:{{item.subjectInfo&&item.subjectInfo.subjectName}}</div>
+                                <div class="card_inType">年级:{{item.subjectInfo&&item.subjectInfo.subjectGrade}}</div>
+                                <div class="card_inType">学期:{{item.subjectInfo&&item.subjectInfo.subjectTerm}}</div>
+                                <div class="card_inBot">
+                                    <div class="card_inBot_left">已有{{item.studyCount}}人加入</div>
+                                    <!-- <div class="card_inBot_right" @click="toExe">练习</div> -->
+                                </div>
+                                <div class="card_mask">
+                                    <div class="card_inType">有效周期:{{item.orderTime}}日</div>
+                                    <div class="card_inType">自购买之日起{{item.orderTime}}日内，该课程可使用。</div>
+                                    <div class="card_inType">价格：{{item.coursePrice}}元</div>
+                                    <div class="card_mask_inBot" v-if="item.buy">
+                                        <el-button type="primary" @click="toExe(item)">练习</el-button>
                                     </div>
-                                    <div class="card_mask">
-                                        <div class="card_inType">有效周期:365日</div>
-                                        <div class="card_inType">自购买之日起365日内，该课程可使用。</div>
-                                        <div class="card_inType">价格：335元</div>
-                                         <div class="card_mask_inBot">
-                                               <el-button type="primary" @click="toExe">试用</el-button>
-                                               <el-button type="success">购买</el-button>
-                                        </div>
+                                    <div class="card_mask_inBot" v-else>
+                                        <el-button type="primary" @click="toExe(item)">试用</el-button>
+                                        <el-button type="success" @click="commitOrder(item.id)">购买</el-button>
                                     </div>
-                                </el-card>
+                                </div>
                             </el-card>
+                        </el-card>
                         
-                        </template>    
                         
 
                     </div>
@@ -77,27 +65,44 @@
         },
         data(){
             return {
-                submitState:false,//查询按钮
+                searchState:false,//查询按钮
                 form:{
-                    subject:'全部',
+                    page:'1',
+                    pageSize:"100",
+                    subjectGrade:"七年级",
                 },
-                options:[ {
+                tabIndex:"1",//默认选中第一个
+                tabList: [
+                       {
                         value: '1',
-                        label: '全部'
-                        }, {
+                        label: '七年级'
+                    },
+                    {
                         value: '2',
-                        label: '语文'
-                        }, {
+                        label: '八年级'
+                    },
+                    {
                         value: '3',
-                        label: '数学'
-                        },] ,
-           
+                        label: '九年级'
+                    }
+                ],
+                list:[],//数据
             }
         },
         methods: {
+            //提交订单
+            commitOrder(id){
+                this.$router.push("/exercises/orderInit?id="+id)
+            },
+            //年级选择
+            tabSelect(key, keyPath){
+                key==1?this.form.subjectGrade="七年级":key==2?this.form.subjectGrade="八年级":this.form.subjectGrade="九年级"
+                console.log(key, keyPath,this.form);
+                this.getDetail()
+            },
             //选择单元
-            toExe(id){
-               this.$router.push("choseUnit")
+            toExe(item){//buy : 0 未购买 1 已购买
+               this.$router.push("choseUnit?id="+item.id+"&status="+item.buy)
             },
            //    查询
            submitForm(){
@@ -108,11 +113,11 @@
              */
             getDetail() {
                 //初始化列表
-                this.$axios.post('/subject/listSubject' ).then(res => {
-                    console.log("获取数据",res);
-                    //     let info = res.data.data;
-                
-                    // this.searchState = false;
+                this.searchState = true
+                this.$axios.post('/course/courseList',this.form).then(res => {
+                    console.log("获取课程",res);
+                    this.searchState = false;
+                    this.list = res.data.result.list;
                 })
                 .catch((rej) => {
                     console.log("获取数据失败",rej)

@@ -3,24 +3,28 @@
     <div class="main-right" id="main-right" :style="{height: (getWinHeight-60) + 'px'}">
       <div class="third-nav">
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item to="/exercises/myExe">我的练习</el-breadcrumb-item>
+          <el-breadcrumb-item to="/exercises/myExe">我的学习</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="main-content" id="main-content" :style="{height: (getWinHeight-120)+'px'}">
         <div class="main-feature">
-          <div class="main-inner">
-            <el-card style="margin: 20px 0" v-for="item in 3" >
+          <div class="main-inner" v-loading="searchState">
+            <el-card style="margin: 20px 0" v-for="item in list" :key="item.id">
                 <div class="item_top">
-                    <div class="item_tit">历史（初一） 上 
-                        <span style="font-size:14px;color:#909399;margin-left:30px">单元:1,2,3</span>
+                    <div class="item_tit">
+                      {{item.subjectName}} 
+                      <span style="font-size:14px;color:#909399;margin:0 30px">单元: {{item.subjectUnitList}}</span>
+                       <span style="color:#5c307d ;font-size:16px;" v-if="item.historyStatus==1" >未完成</span>
+                       <span style="color:#5c307d ;font-size:16px;" v-if="item.historyStatus==3" >已取消</span>
+                       <span style="color:#67c23a;font-size:16px;" v-if="item.historyStatus==2">已完成</span>
                     </div>
-                     <el-button type="primary" @click="toExe">查看</el-button>
+                    
+                     <el-button type="primary" @click="toExe(item)" :disabled="item.status==1||item.historyStatus==3">{{item.historyStatus==1?"继续学习":item.historyStatus==2?"查看":"已取消"}}</el-button>
                 </div>
                 <div class="item_bot">
-                    <div class="col_tit">状态：有效</div>
-                    <div class="col_time">购买时间：2020-02-19 13:35:55</div>
-                    <div class="col_time">到期时间：2020-02-19 13:35:55</div>
-                    <div class="col_num">练习次数：5</div>
+                    <div class="col_tit" :style="{color:item.status==1?'#F56C6C':''}">状态：{{item.status==1?"已过期":"有效"}}</div>
+                    <div class="col_time">开始时间：{{item.createTime}}</div>
+                    <div class="col_time">完成时间：{{item.finishTime? item.finishTime:"--" }}</div>
                 </div>
             </el-card>
           </div>
@@ -40,47 +44,44 @@ export default {
   },
   data() {
     return {
-      list: [
-        {
-          title:
-            " 10.某纪录片拍摄组决定拍摄一系列节目 《中国原始人一探秘中 国文化之源》，其内容以时间顺序记录。此摄制组的第一站应为(     )。"
-        },
-        {
-          title:
-            " 10.某纪录片拍摄组决定拍摄一系列节目 《中国原始人一探秘中 国文化之源》，其内容以时间顺序记录。此摄制组的第一站应为(     )。"
-        }
-      ] //题数据
+      searchState:false,
+      list: [] //题数据
     };
   },
   methods: {
     //去练习
-    toExe(id) {
-      this.$router.push("/exercises/myExe/myExeDetail");
+    toExe(item) {
+      // console.log("item",item)
+      let info = {
+        id:item.id,
+        status:item.historyStatus,
+        subjectId:item.subjectId,
+        subjectUnitList:item.subjectUnitList
+      }
+      info = JSON.stringify(info)
+      this.$router.push("/exercises/myExe/myExeDetail?info="+info);
     },
     /**
      * 获取信息详情
      */
     getDetail() {
-      //初始化列表
-      this.$axios
-        .get("/mer/business/circle/detail?businessCircleId=" + this.businessId)
-        .then(res => {
-          console.log(res);
-          if (res.data.code === this.$webConfig.httpSuccessStatus) {
-            let info = res.data.data;
-          } else {
-            this.$message(res.data.message);
-          }
-          this.searchState = false;
+        //初始化列表
+        this.searchState = true
+        this.$axios.post('/topic/practiceHistory').then(res => {
+            console.log("获取",res);
+            this.searchState = false;
+            this.list = res.data.result;
         })
-        .catch(() => {
-          this.searchState = false;
+        .catch((rej) => {
+            console.log("获取数据失败",rej)
+            this.searchState = false;
+            this.$message.error(rej.data.message||"网络异常")
         });
-    }
+    },
   },
   beforeMount() {
     // 获取信息
-    // this.getDetail();
+    this.getDetail();
   }
 };
 </script>

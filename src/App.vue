@@ -18,3 +18,11 @@
     }
   }
 </script>
+<style>
+.red-color{
+  color:#F56C6C ;
+}
+.suc-color{
+  color: #67C23A;
+}
+</style>

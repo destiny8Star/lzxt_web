@@ -119,4 +119,40 @@ export default [
             file: "/exercises/ChoseUnit.vue",
         },
     },
+    //练习--试用
+    {
+        path: '/exercises/ontrial',
+        name: 'ontrial',
+        component: () =>
+            import ( /* webpackChunkName: "ontrial" */ '../views/exercises/Ontrial.vue'),
+        meta: {
+            group_name: "选择单元",
+            menu_name: "ontrial",
+            file: "/exercises/Ontrial.vue",
+        },
+    },
+    //订单初始化
+    {
+        path: '/exercises/orderInit',
+        name: 'orderInit',
+        component: () =>
+            import ( /* webpackChunkName: "orderInit" */ '../views/exercises/OrderInit.vue'),
+        meta: {
+            group_name: "初始化订单",
+            menu_name: "orderInit",
+            file: "/exercises/OrderInit.vue",
+        },
+    },
+    //订单支付
+    {
+        path: '/exercises/orderPay',
+        name: 'orderPay',
+        component: () =>
+            import ( /* webpackChunkName: "orderPay" */ '../views/exercises/OrderPay.vue'),
+        meta: {
+            group_name: "订单支付",
+            menu_name: "orderPay",
+            file: "/exercises/OrderPay.vue",
+        },
+    },
 ]

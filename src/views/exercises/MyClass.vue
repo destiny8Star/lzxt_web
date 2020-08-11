@@ -8,22 +8,23 @@
             </div>
             <div class="main-content" id="main-content" :style="{height: (getWinHeight-120)+'px'}">
                 <div class="main-feature">
-                    <div class="main-inner">
+                    <div class="main-inner" v-loading="searchState">
                         <!-- <div class="home-title" >
                            <span class="home-title-t ly-title">初一历史（上）</span>
                         </div> -->
-                         <el-card style="margin: 20px 0" v-for="item in 3" >
+                         <el-card style="margin: 20px 0" v-for="(item,ind) in  list" :key="ind" >
                             <div class="item_top">
                                 <div class="item_tit">
-                                    历史（初一） 上 
+                                    {{item.courseName}}
                                 </div>
-                                <el-button type="primary" @click="toExe">进入</el-button>
+                                <el-button type="primary" @click="toExe(item)" :disabled="item.status==2">进入</el-button>
                             </div>
                             <div class="item_bot">
-                                <div class="col_tit">状态：有效</div>
-                                <div class="col_time">购买时间：2020-02-19 13:35:55</div>
-                                <div class="col_time">到期时间：2020-02-19 13:35:55</div>
-                                <div class="col_num">练习次数：5</div>
+                                <div class="col_tit" v-if="item.status == 1">状态：有效</div>
+                                <div class="col_tit color-red" v-if="item.status == 2">状态：已过期</div>
+                                <div class="col_time">购买时间：{{item.buyTime}}</div>
+                                <div class="col_time">到期时间：{{item.expireTime}}</div>
+                                <div class="col_num">练习次数：{{item.studyCount}}</div>
                             </div>
                         </el-card>
                     </div>
@@ -44,37 +45,38 @@
         },
         data(){
             return {
+                searchState:false,
+                list:[],//数据列表
             }
         },
         methods: {
              //选择单元
-                toExe(id){
-                this.$router.push("choseUnit")
+                toExe(item){
+                    console.log("item",item)
+                   this.$router.push("choseUnit?id="+item.courseId+"&status="+item.status)
                 },
             /**
              * 获取信息详情
              */
             getDetail() {
                 //初始化列表
-                this.$axios.get('/mer/business/circle/detail?businessCircleId=' + this.businessId).then(res => {
-                    console.log(res);
-                    if (res.data.code === this.$webConfig.httpSuccessStatus) {
-                        let info = res.data.data;
-                    } else {
-                        this.$message(res.data.message);
-                    }
+                this.searchState = true
+                this.$axios.post('/course/myCourse').then(res => {
+                    console.log("获取",res);
                     this.searchState = false;
+                    this.list = res.data.result;
                 })
-                    .catch(() => {
-                        this.searchState = false;
-                    });
+                .catch((rej) => {
+                    console.log("获取数据失败",rej)
+                    this.searchState = false;
+                    this.$message.error(rej.data.message||"网络异常")
+                });
             },
           
         },
         beforeMount() {
-          
             // 获取信息
-            // this.getDetail();
+            this.getDetail();
         },
     }
 </script>
@@ -118,5 +120,8 @@
     .item_bot{
         display: flex;
         align-items: center;
+    }
+    .color-red{
+        color: crimson;
     }
 </style>

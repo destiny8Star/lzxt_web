@@ -31,17 +31,18 @@
                 <!-- <div class="product-item__tip">历史</div> -->
               </router-link>
             </div>
-            <div class="product-item">
+            <!-- <div class="product-item">
               <div class="product-item__title">商家服务</div>
               <router-link to="/" class="product-item__func">
                 <div class="product-item__name">商家学院</div>
                 <div class="product-item__tip">小鹅通商家学习社群</div>
               </router-link>
-            </div>
+            </div> -->
           </div>
         </div>
-        <router-link  to="/home/example" class="nav-func_item">案例分享</router-link>
-        <div id="xecloud" class="nav-func_item nav-more">
+        <!-- <router-link  to="/home/example?type=example" class="nav-func_item">案例分享</router-link> -->
+        <div class="nav-func_item" :class="isExample?'router-link-active':''" @click="$router.push('/home/example?type=example')">案例分享</div>
+        <!-- <div id="xecloud" class="nav-func_item nav-more">
           云服务
           <i class="arrow-down iconfont iconicon_nav_downArrow"></i>
 
@@ -69,8 +70,8 @@
               </a>
             </div>
           </div>
-        </div>
-        <div id="aboutUs" class="nav-func_item nav-more">
+        </div> -->
+        <!-- <div id="aboutUs" class="nav-func_item nav-more">
           关于我们
           <i class="arrow-down iconfont iconicon_nav_downArrow"></i>
           <div class="more-list">
@@ -84,7 +85,7 @@
               data-count="pc-顶部导航_关于我们_帮助中心"
             >帮助中心</a>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="btns index_top_btn">
         <!-- 企学院企业微信独立页面右侧按钮显示跳转注册链接 -->
@@ -139,7 +140,7 @@
 
   <!-- banner -->
   <div class="i_banner">
-       <el-carousel trigger="click" height="540px" >
+       <el-carousel trigger="click" height="500px" >
             <el-carousel-item v-for="(item,ind) in banners" :key="ind">
                 <div class="i_banner_item">
                     <img :src="item" alt="">
@@ -147,7 +148,7 @@
             </el-carousel-item>
         </el-carousel>
         <!-- 最新资讯 -->
-        <div class="ban_news" v-if="!selLogin&&isNews">
+        <div class="ban_news" v-show="!selLogin&&isNews">
             <h3 class="ban_newsTit">最新资讯</h3>
             <div class="ban_newsTabs">
                 <div class="ban_newsTabs_item" :class="selTabs==item.id?'selTabs':''" 
@@ -156,16 +157,23 @@
                 </div>
             </div>
             <div class="ban_newsCont">
-                <div class="ban_newsCont_item" v-for="item in selArr" :key="item.id">
+                <div class="ban_newsCont_item" v-for="item in selArr" :key="item.id"
+                 @click="toDetail(item.id)">
                        {{item.title}}  
                 </div>
             </div>
-            <div class="ban_newsMore">【更多】</div>
+            <router-link  to="/home/example?type=news" class="ban_newsMore">
+              【更多】
+            </router-link>
+
         </div>
         <!-- 登陆 -->
-          <div class="ban_news" v-if="selLogin">
+          <div class="ban_news blank" v-show="selLogin">
             <h3 class="ban_newsTit" style="border-bottom:0" @click="outLogin"> <<  返回 </h3>
-            <h5 class="loginTit">手机扫码，安全登陆</h5> 
+            <!-- <h5 class="loginTit">手机扫码，安全登陆</h5>  -->
+            <div class="login_qr">
+              <iframe :src="qrcode" frameborder="0"></iframe>
+            </div>
         </div>
         
   </div>
@@ -185,6 +193,7 @@ export default {
              "http://wechatapppro-1252524126.file.myqcloud.com/apprnDA0ZDw4581/image/91a54fd87ee04cc6c960c56c3f65734a.jpg"
          ],
          selTabs:1,//新闻当前选中
+         qrcode:"",//二维码地址
          tabs:[
              {
                  id:1,
@@ -199,87 +208,9 @@ export default {
                  name:"其他",
              },
          ],
-         tkArr:[
-             {
-                 id:1,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬阿斯蒂芬而通过风格化大发光火的风格撒的"
-             },
-               {
-                 id:2,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬是电饭锅是电饭锅"
-             },
-               {
-                 id:3,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬是电饭锅是电饭锅"
-             },
-               {
-                 id:4,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬发的供货商是电饭锅"
-             },
-             {
-                 id:5,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬是大发光火是电饭锅"
-             },
-             {
-                 id:6,
-                 title:"啊洛杉矶的飞可拉伸的法律阿斯蒂芬是电饭锅斯蒂芬"
-             },
-
-         ],
-         sxArr:[
-             {
-                 id:1,
-                 title:"111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:2,
-                 title:"111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:3,
-                 title:"222啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:4,
-                 title:"111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-             {
-                 id:5,
-                 title:"222啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-             {
-                 id:6,
-                 title:"111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-
-         ],
-          qtArr:[
-             {
-                 id:1,
-                 title:"aaaa111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:2,
-                 title:"bbbb111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:3,
-                 title:"cccc222啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-               {
-                 id:4,
-                 title:"ddd111啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-             {
-                 id:5,
-                 title:"ddddee222啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-             {
-                 id:6,
-                 title:"1eee11啊洛杉矶的飞可拉伸的法律阿斯蒂芬"
-             },
-
-         ], 
+         tkArr:[],
+         sxArr:[],
+         qtArr:[], 
          selArr:[],//要展示的新闻数组
          selLogin:false,//是否点击登陆
     };
@@ -292,13 +223,39 @@ export default {
      //是否展示新闻
      isNews(){
          return this.$route.meta.menu_name == 'home'
+     },
+     //是否是案例
+     isExample(){
+         return this.$route.query.type == 'example'
      }
   },
   methods: {
+      //去详情页
+    toDetail(id){
+       this.$router.push("/home/newsDetail?type=news&id="+id)
+    },
       //鼠标移入显示
       overTabs(id){
           this.selTabs = id;
-          id==1? this.selArr = this.tkArr:id==2? this.selArr = this.sxArr: this.selArr = this.qtArr
+          if(id==1){
+            if(this.tkArr.length>0){
+              this.selArr = this.tkArr
+            }else{
+              this.getNews()
+            }
+          }else if(id == 2){
+             if(this.sxArr.length>0){
+              this.selArr = this.sxArr
+            }else{
+              this.getNews()
+            }
+          }else{
+             if(this.qtArr.length>0){
+              this.selArr = this.qtArr
+            }else{
+              this.getNews()
+            }
+          }
       },
     //   登陆
     toLogin(){
@@ -307,12 +264,50 @@ export default {
     // 退出登陆
     outLogin(){
         this.selLogin = false
+    },
+    //获取二维码 
+    getQrcode(){
+         //初始化列表
+          this.$axios.get('/login/getQRCodeUrl' ).then(res => {
+              console.log("获取数据",res);
+              this.qrcode = res.data.result
+              //     let info = res.data.data;
+          })
+          .catch((rej) => {
+              console.log("获取数据失败",rej)
+              this.$message.error(rej.data.message||"网络异常")
+          });
+    },
+    getNews(){
+        let data = {
+          page:1,
+          pageSize:10,
+          tab:this.selTabs,
+        }
+        this.$axios.post('/news/newsList',data).then(res => {
+            console.log("获取新闻",res);
+            if(this.selTabs==1){
+              this.selArr = this.tkArr = res.data.result.list;
+            }
+            if(this.selTabs==2){
+              this.selArr = this.sxArr = res.data.result.list;
+            }
+            if(this.selTabs==3){
+              this.selArr = this.qtArr = res.data.result.list;
+            }
 
-    }
+        })
+        .catch((rej) => {
+            console.log("获取数据失败",rej)
+            this.$message.error(rej.data.message||"网络异常")
+        });
+    },
   },
   mounted() {
        console.log(this.$route)
        this.selArr = this.tkArr
+       this.getQrcode()
+       this.getNews()
     //   if(this.$route.meta.menu_name == "首页"){
     //      this.showDiv=false 
     //   }
@@ -356,9 +351,10 @@ export default {
 }
 .i_banner{
     width: 100%;
-    height: 610px;
+    height: 570px;
     padding-top: 70px;
     position: relative;
+    overflow: hidden;
 }
 >>>.el-carousel__arrow{
    width: 60px;
@@ -366,7 +362,7 @@ export default {
    font-size: 30px;
 }
 .ban_news{
-    height: 540px;
+    height: 500px;
     width: 530px;
     background: rgb(14, 89, 251,0.7);
     position: absolute;
@@ -375,6 +371,10 @@ export default {
     z-index: 5;
     color:#fff;
     padding: 30px;
+}
+.ban_news.blank{
+  background: #fff;
+  color: #666;
 }
 .ban_newsTit{
     font-size: 24px;
@@ -407,11 +407,25 @@ export default {
     font-size: 20px;
     text-align: end;
     cursor: pointer;
-
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    color: #fff;
 }
 .loginTit{
     margin-top: 30px;
     text-align: center;
     font-size: 22px;
 }
+.login_qr{
+  width: 400px;
+  height: 400px;
+  background: #fff;
+  margin: 30px auto 0 ;
+}
+iframe{
+  width: 100%;
+  height: 100%;
+}
+
 </style>
