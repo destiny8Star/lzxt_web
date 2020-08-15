@@ -154,36 +154,46 @@
                 </div>
             </el-carousel-item>
         </el-carousel>
-        <!-- 最新资讯 -->
-        <div class="ban_news" v-show="!selLogin&&isNews">
-            <h3 class="ban_newsTit">最新资讯</h3>
-            <div class="ban_newsTabs">
-                <div class="ban_newsTabs_item" :class="selTabs==item.id?'selTabs':''" 
-                v-for="item in tabs" :key="item.id" @mouseover="overTabs(item.id)">
-                    {{item.name}}
-                </div>
-            </div>
-            <div class="ban_newsCont">
-                <div class="ban_newsCont_item" v-for="item in selArr" :key="item.id"
-                 @click="toDetail(item.id)">
-                       {{item.title}}  
-                </div>
-            </div>
-            <router-link  to="/home/example?type=news" class="ban_newsMore">
-              【更多】
-            </router-link>
-
-        </div>
+      
         <!-- 登陆 -->
-          <div class="ban_news blank" v-show="selLogin">
+        <div class="ban_news blank" v-show="selLogin">
             <h3 class="ban_newsTit" style="border-bottom:0" @click="outLogin"> <<  返回 </h3>
             <!-- <h5 class="loginTit">手机扫码，安全登陆</h5>  -->
             <div class="login_qr">
               <iframe :src="qrcode" frameborder="0"></iframe>
             </div>
         </div>
-        
   </div>
+    <!-- 最新资讯 -->
+  <div class="infoBox" v-show="isNews">
+    <div class="info_left">
+      <img src="@/assets/image/image_1.png" alt="">
+    </div>
+    <div class="info_right" >
+          <div class="info_right_top">
+              <h3 class="ban_newsTit">最新资讯</h3>
+            <router-link  to="/home/example?type=news" class="ban_newsMore">
+              【更多】
+            </router-link>
+          </div>
+        
+          <div class="ban_newsTabs">
+              <div class="ban_newsTabs_item" :class="selTabs==item.id?'selTabs':''" 
+              v-for="item in tabs" :key="item.id" @click="overTabs(item.id)">
+                  {{item.name}}
+              </div>
+          </div>
+          <div class="ban_newsCont">
+              <div class="ban_newsCont_item" v-for="item in selArr" :key="item.id"
+                @click="toDetail(item.id)">
+                      {{item.title}}  
+              </div>
+          </div>
+         
+
+      </div>
+  </div>  
+    
 </div>
 
 </template>
@@ -323,6 +333,7 @@ export default {
 </script>
 
 <style scoped>
+
 .router-link-active {
   color: #f6c624;
 }
@@ -368,6 +379,39 @@ export default {
    height: 60px;
    font-size: 30px;
 }
+.infoBox{
+  width: 100%;
+  height: 400px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info_left{
+   height: 400px;
+    width:500px;
+    background: #f5f5f5;
+    margin-right: 50px;
+}
+.info_left img{
+  width: 100%;
+  height: 100%;
+}
+.info_right{
+    height:400px;
+    width: 500px;
+    color:#333;
+    padding: 30px;
+    background: #f5f5f5;
+}
+.info_right_top{
+  width: 100%;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
 .ban_news{
     height: 500px;
     width: 530px;
@@ -386,8 +430,8 @@ export default {
 .ban_newsTit{
     font-size: 24px;
     padding-bottom: 5px;
-    border-bottom: 1px solid #fff;
 }
+
 .ban_newsTabs{
     margin: 20px 0 30px;
     font-size: 18px;
@@ -399,7 +443,7 @@ export default {
     cursor: pointer;
 }
 .selTabs{
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #333;
 }
 .ban_newsCont_item{
     font-size: 16px;
@@ -412,12 +456,8 @@ export default {
 }
 .ban_newsMore{
     font-size: 20px;
-    text-align: end;
     cursor: pointer;
-    position: absolute;
-    right: 30px;
-    bottom: 30px;
-    color: #fff;
+    color: #333;
 }
 .loginTit{
     margin-top: 30px;

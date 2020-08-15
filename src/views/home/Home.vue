@@ -79,10 +79,10 @@
           </div>
         </swiper-slide>
       </swiper>
-      <div class="swip_bot">
+      <!-- <div class="swip_bot">
         更多
         <i class="iconfont iconarrow-right"></i>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
