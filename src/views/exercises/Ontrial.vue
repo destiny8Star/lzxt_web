@@ -14,7 +14,7 @@
                            <!-- <span class="home-title-t ly-title">{{results.subjectName}}</span> -->
                         </div>
                          <div class="contBox"  v-loading="searchState">
-                            <el-card style="margin: 20px 0;" v-for="(topic,topInd) in results" :key="topInd">
+                            <el-card style="margin: 20px 0;width:100%" v-for="(topic,topInd) in results" :key="topInd">
                                 <div class="card_inTit">
                                    {{topInd+1}}、 {{topic.topicTitle}}
                                 </div>
@@ -23,8 +23,14 @@
                                         <img :src="item" alt="">
                                     </div>
                                 </div>
-                              
-                                <el-radio-group>
+                                <!-- 填空题 -->
+                                <div v-if="topic.topicType == 0">
+                                        <div v-for="(inpI,indI) in topic.fillBlankTopicChoice" :key="indI" class="inpBox">
+                                           ({{indI+1}})、 <el-input placeholder="请输入答案" :disabled="true"></el-input>
+                                        </div>
+                                </div>
+                                <!-- 单选题 -->
+                                <el-radio-group v-if="topic.topicType == 1">
                                     <el-radio :label="Object.keys(itemIn)[0]" v-for="(itemIn,index) in topic.radioChoice" :key="index"
                                     disabled>
                                          {{Object.keys(itemIn)[0]}}、
@@ -33,6 +39,24 @@
                                          :key="indImg" class="img-radio">
                                     </el-radio>
                                 </el-radio-group>
+                                <!-- 多选题 -->
+                                <div v-if="topic.topicType == 2">
+                                    <el-checkbox  disabled  v-for="(itemIn,index) in topic.mulChoice" :key="index">
+                                        {{Object.keys(itemIn)[0]}}、
+                                         {{Object.values(itemIn)[0].content }}
+                                          <img :src="itemImg" alt="" v-for="(itemImg,indImg) in Object.values(itemIn)[0].imageList"
+                                         :key="indImg" class="img-radio">
+                                    </el-checkbox>
+                                </div>
+                                <!-- 问答题 -->
+                                <div v-if="topic.topicType == 3">
+                                    <el-input type="textarea" placeholder="请输入答案" :disabled="true"></el-input>
+                                </div>
+                                <!-- 判断题 -->
+                                <div v-if="topic.topicType == 4">
+                                     <el-radio disabled >对</el-radio>
+                                     <el-radio disabled >错</el-radio>
+                                </div>
                             </el-card>
                         </div>
                     </div>
@@ -54,7 +78,7 @@
             return {
                 searchState:false,
                 info:"",//课程
-                topic:{},//题数据
+                topic:{},//题数据  topicType:0:填空题 ,1：单选题,2:多选题,3:问答题,4:判断题
                 results:{},//接口所有信息
             }
         },
@@ -146,5 +170,10 @@
     }
     .hasAnswer{
         margin-right: 30px;
+    }
+    .inpBox{
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
     }
 </style>

@@ -43,7 +43,7 @@
                         </el-table-column>
                         <el-table-column  label="操作"  >
                            <template slot-scope="scope">
-                                <el-button type="danger" @click="delClick(scope.row)" size="mini">删除</el-button>
+                                <el-button type="danger" @click="delClick(scope.row.orderId)" size="mini">删除</el-button>
                                 <el-button type="primary" size="mini" @click="toClick(scope.row)" v-if="scope.row.payStatus==1">去支付</el-button>
                             </template>
                         </el-table-column>
@@ -100,6 +100,24 @@ export default {
     };
   },
   methods: {
+    //删除
+    delClick(id){
+         console.log("re",id)
+          //初始化列表
+          this.searchState = true
+          this.$axios.post("/order/delete" , {orderId:id})
+            .then(res => {
+              console.log("shanchujieguo",res);
+              this.searchState = false;
+              this.$message.success("删除成功")
+              this.getData()
+            })
+            .catch((rej) => {
+                  console.log("删除失败",rej)
+                  this.searchState = false;
+                  this.$message.error(rej.data.message||"网络异常")
+            });
+    },
     //去支付
     toClick(row){
         console.log("row",row)
