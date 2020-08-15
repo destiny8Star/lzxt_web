@@ -5,7 +5,7 @@
 
 .multi-tab .multi-tab-item.on,
 .multi-tab .multi-tab-item:hover {
-    border-bottom: 1px solid #105CFB
+    border-bottom: 1px solid #f6c624
 }
 
 .multi-tab .multi-tab-item a {
@@ -21,7 +21,7 @@
 
 .multi-tab .multi-tab-item.on .iconfont,
 .multi-tab .multi-tab-item:hover .iconfont {
-    color: #105CFB
+    color: #f6c624
 }
 
 .multi-tab .multi-tab-item .iconfont {
@@ -235,7 +235,7 @@
     opacity: 1;
     left: -1px;
     top: -1px;
-    border: 1px solid #105CFB
+    border: 1px solid #f6c624
 }
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top {
@@ -258,7 +258,7 @@
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top .pc-small-img .iconfont {
     font-size: 32px;
-    color: #105CFB
+    color: #f6c624
 }
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top .education-title-box {
@@ -414,7 +414,7 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    max-width: 1200px;
+    width: 1200px;
     height: 70px;
     margin: 0 auto
 }
@@ -425,7 +425,8 @@
     width: 129px
 }
 
-.nav .nav-func {
+.nav-func {
+    width: 800px;
     height: 70px;
     font-size: 0
 }
@@ -495,7 +496,7 @@
 
 .nav .nav-item_select:after {
     position: absolute;
-    background: #105CFB;
+    background: #f6c624;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
     -webkit-transform-origin: center;
@@ -511,7 +512,7 @@
 }
 
 .nav .nav-func_item-select {
-    color: #105CFB
+    color: #f6c624
 }
 
 .nav .nav-more {
@@ -563,8 +564,8 @@
     position: relative
 }
 
-.nav .product-list .product-item {
-    width: 300px;
+.product-item {
+    width: 1200px;
     padding-bottom: 32px
 }
 
@@ -589,11 +590,12 @@
     background: #f5f8ff
 }
 
-.nav .product-list .product-item__title {
+.product-item__title {
     line-height: 17px;
     height: 29px;
     font-size: 14px;
-    color: #666;
+    color: #136ffe;
+    font-weight: 800;
     padding: 0 0 0 12px
 }
 
@@ -620,13 +622,16 @@
     background: #fff
 }
 
-.nav .product-list .product-item__name {
+.product-item__name {
     line-height: 20px;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 800;
     color: #333;
     margin: 12px 0 5px
 }
-
+.product-item__name:hover{
+    color:#f6c624
+}
 .nav .product-list .product-item__tip {
     line-height: 17px;
     font-size: 14px;
@@ -666,7 +671,7 @@
 }
 
 .nav .more-item:hover {
-    color: #105CFB
+    color: #f6c624
 }
 
 .nav .more-item:last-child {
@@ -683,7 +688,7 @@
 }
 
 .whiteNav .nav-func_submit:hover {
-    color: #105CFB
+    color: #f6c624
 }
 
 .whiteNav .arrow-down:before {
@@ -696,13 +701,13 @@
 }
 
 .whiteNav .nav-func_forFree {
-    background: #105CFB;
+    background: #f6c624;
     color: #fff
 }
 
 .whiteNav .nav-func_item:hover .arrow-down:before,
 .whiteNav .nav-item_select {
-    color: #105CFB
+    color: #f6c624
 }
 
 .whiteNav .nav-func_forFree:hover {
@@ -712,13 +717,13 @@
 }
 
 .whiteNav .nav-item_select:before {
-    background: #105CFB
+    background: #f6c624
 }
 
 .whiteNav .nav-func_item:hover {
     -webkit-transition: all .3s;
     transition: all .3s;
-    color: #105CFB
+    color: #f6c624
 }
 
 .nav-space {
@@ -767,8 +772,8 @@
 }
 
 .nav-footer .nav-footer__item-selected {
-    color: #105CFB;
-    border-bottom: 2px solid #105cfb
+    color: #f6c624;
+    border-bottom: 2px solid #f6c624
 }
 
 .bg161E30 {
@@ -921,7 +926,7 @@
 .customer-service-box .sidebar-item {
     width: 65px;
     height: 65px;
-    background: #105cfb;
+    background: #f6c624;
     border-radius: 8px;
     margin-bottom: 8px;
     display: -webkit-box;
@@ -1012,9 +1017,9 @@
     width: 225px;
     height: 40px;
     line-height: 40px;
-    border: 1px solid #105CFB;
+    border: 1px solid #f6c624;
     border-radius: 24px;
-    color: #105CFB;
+    color: #f6c624;
     font-size: 18px;
     cursor: pointer
 }
@@ -1265,7 +1270,7 @@
 }
 
 .EC1 {
-    color: #105CFB
+    color: #f6c624
 }
 
 .mb4 {
@@ -1426,7 +1431,7 @@
     height: 56px;
     line-height: 56px;
     border-radius: 28px;
-    background: #105CFB;
+    background: #f6c624;
     color: #fff;
     font-size: 16px;
     text-align: center;
@@ -1440,8 +1445,10 @@
 
 .MediumBtnType1,
 .SmallBtnType1 {
-    color: #fff;
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 12px;
     text-align: center;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -1449,49 +1456,44 @@
     user-select: none;
     cursor: pointer;
     outline: 0;
-    display: inline-block;
-    border-radius: 22px
 }
 
 .BigBtnType1:focus,
 .BigBtnType1:hover {
-    background: #286CFB
+    color: #f6c624
 }
 
 .BigBtnType1:active {
-    background: #0E52E1
+    color: #f6c624
 }
 
 .MediumBtnType1 {
     padding: 0 44px;
     height: 44px;
     line-height: 44px;
-    background: #105CFB
+    color: #333
 }
 
 .MediumBtnType1:focus,
 .MediumBtnType1:hover {
-    background: #286CFB
+    color: #f6c624
 }
 
 .MediumBtnType1:active {
-    background: #0E52E1
+    color: #f6c624
 }
 
 .SmallBtnType1 {
-    padding: 0 32px;
-    height: 36px;
-    line-height: 36px;
-    background: #105CFB
+
 }
 
 .SmallBtnType1:focus,
 .SmallBtnType1:hover {
-    background: #286CFB
+    color: #f6c624
 }
 
 .SmallBtnType1:active {
-    background: #0E52E1
+    color: #f6c624
 }
 
 .BigBtnType2 {
@@ -1500,8 +1502,8 @@
     height: 56px;
     line-height: 56px;
     border-radius: 28px;
-    border: 1px solid #105CFB;
-    color: #105CFB;
+    border: 1px solid #f6c624;
+    color: #f6c624;
     font-size: 16px;
     background: #fff;
     text-align: center;
@@ -1515,6 +1517,7 @@
 
 .MediumBtnType2,
 .SmallBtnType2 {
+    color:#000;
     font-size: 14px;
     text-align: center;
     -webkit-user-select: none;
@@ -1527,59 +1530,50 @@
 
 .BigBtnType2:focus,
 .BigBtnType2:hover {
-    color: #fff;
-    background: #286CFB
+    color: #f6c624;
 }
 
 .BigBtnType2:active {
-    color: #fff;
-    background: #0E52E1
+    color: #f6c624;
 }
 
 .MediumBtnType2 {
     display: inline-block;
     padding: 0 44px;
-    height: 44px;
-    line-height: 44px;
+    /* height: 44px;
+    line-height: 44px; */
     border-radius: 22px;
-    border: 1px solid #105CFB;
-    color: #105CFB
+    color: #f6c624
 }
 
 .MediumBtnType2:focus,
 .MediumBtnType2:hover {
-    background: #286CFB;
+    background: #f6c624;
     color: #fff
 }
 
 .MediumBtnType2:active {
-    background: #0E52E1;
+    background: #f6c624;
     color: #fff
 }
 
 .BigBtnType3,
 .SmallBtnType2 {
     display: inline-block;
-    color: #105CFB
+    color: #f6c624
 }
 
 .SmallBtnType2 {
-    padding: 0 32px;
-    height: 36px;
-    line-height: 36px;
-    border-radius: 22px;
-    border: 1px solid #105CFB
+
 }
 
 .SmallBtnType2:focus,
 .SmallBtnType2:hover {
-    background: #286CFB;
-    color: #fff
+    color: #f6c624;
 }
 
 .SmallBtnType2:active {
-    background: #0E52E1;
-    color: #fff
+    color: #f6c624
 }
 
 .BigBtnType3 {
@@ -1601,7 +1595,7 @@
 .MediumBtnType3,
 .SmallBtnType3 {
     display: inline-block;
-    color: #105CFB;
+    color: #f6c624;
     font-size: 14px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -1626,7 +1620,7 @@
     height: 44px;
     line-height: 44px;
     border-radius: 22px;
-    border: 1px solid #105CFB
+    border: 1px solid #f6c624
 }
 
 .MediumBtnType3:focus,
@@ -1643,7 +1637,7 @@
     height: 36px;
     line-height: 36px;
     border-radius: 22px;
-    border: 1px solid #105CFB
+    border: 1px solid #f6c624
 }
 
 .SmallBtnType3:focus,
@@ -1657,7 +1651,7 @@
 
 .xe-banner1 {
     height: 540px;
-    background: #105CFB
+    background: #f6c624
 }
 
 .xe-banner1 .w1200 {
@@ -1893,7 +1887,7 @@ ul {
 }
 
 .nav-left-wrapper .nav-list .nav-list-item .selected {
-    color: #105CFB
+    color: #f6c624
 }
 
 * {
@@ -2003,7 +1997,7 @@ ul {
 
 .multi-tab .multi-tab-item.on,
 .multi-tab .multi-tab-item:hover {
-    border-bottom: 1px solid #105CFB
+    border-bottom: 1px solid #f6c624
 }
 
 .multi-tab .multi-tab-item a {
@@ -2019,7 +2013,7 @@ ul {
 
 .multi-tab .multi-tab-item.on .iconfont,
 .multi-tab .multi-tab-item:hover .iconfont {
-    color: #105CFB
+    color: #f6c624
 }
 
 .multi-tab .multi-tab-item .iconfont {
@@ -2233,7 +2227,7 @@ ul {
     opacity: 1;
     left: -1px;
     top: -1px;
-    border: 1px solid #105CFB
+    border: 1px solid #f6c624
 }
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top {
@@ -2256,7 +2250,7 @@ ul {
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top .pc-small-img .iconfont {
     font-size: 32px;
-    color: #105CFB
+    color: #f6c624
 }
 
 .panorama-education-div .panorama-education .panorama-education-list .big-mobile-education .pc-education-top .education-title-box {
@@ -2607,7 +2601,7 @@ ul {
 
 .data-content {
     height: 650px;
-    background: #105CFB;
+    background: #f6c624;
     background-size: 100%;
     text-align: center;
     margin: 0;

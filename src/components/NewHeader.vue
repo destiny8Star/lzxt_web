@@ -6,8 +6,8 @@
       <!-- 企学院企业微信独立页面特殊处理 -->
       <router-link to="/" class="nav-logo_wrap" v-if="showDiv"></router-link>
       <div class="nav-func" style="display: block">
-        <router-link id="navRoot" to="/home" class="nav-func_item" exact>首页</router-link>
-        <div id="product" class="nav-func_item nav-more" :class="isMultinport?'router-link-active':''">
+        <!-- <router-link id="navRoot" to="/home" class="nav-func_item" exact>首页</router-link> -->
+        <div id="product" style='font-size:14px;font-weight:800' class="nav-func_item nav-more" :class="isMultinport?'router-link-active':''">
           产品与服务
           <i class="arrow-down iconfont iconicon_nav_downArrow"></i>
           <div class="product-list">
@@ -41,7 +41,7 @@
           </div>
         </div>
         <!-- <router-link  to="/home/example?type=example" class="nav-func_item">案例分享</router-link> -->
-        <div class="nav-func_item" :class="isExample?'router-link-active':''" @click="$router.push('/home/example?type=example')">案例分享</div>
+        <div class="nav-func_item" style='font-size:14px;font-weight:800' :class="isExample?'router-link-active':''" @click="$router.push('/home/example?type=example')">案例分享</div>
         <!-- <div id="xecloud" class="nav-func_item nav-more">
           云服务
           <i class="arrow-down iconfont iconicon_nav_downArrow"></i>
@@ -89,13 +89,20 @@
       </div>
       <div class="btns index_top_btn">
         <!-- 企学院企业微信独立页面右侧按钮显示跳转注册链接 -->
-         <div class="login-btn SmallBtnType2" @click="toLogin">登录</div>
-        <div to="/free" class="SmallBtnType1" @click="toLogin">免费试用</div>
+         <div class="login-btn SmallBtnType1" @click="toLogin">
+           <img src="../assets/imgs/login.png" style='margin-right:5px' alt="">
+           <div>登录</div>
+           
+          </div>
+        <div to="/free" class="SmallBtnType1" @click="toLogin">
+          <img src="../assets/imgs/shiyong.png" style='margin-right:5px' alt="">
+          免费试用
+        </div>
         <div class="header-Qr">
           <span style="line-height:40px;">
             <i class="iconfont iconicon_minprogram EC1"></i>
           </span>
-          <div class>小程序</div>
+          <div style='font-size:12px'>小程序</div>
           <div class="tip-pop" style=" width: 370px; left: -178px; text-align: center; top:68px">
             <div class="iblock">
               <img
@@ -120,7 +127,7 @@
           <span style="line-height:40px;">
             <i class="iconfont iconicon_h EC1"></i>
           </span>
-          <div class>APP</div>
+          <div style='font-size:12px'>APP</div>
           <div class="tip-pop" style=" width: 200px; left: -100px; text-align: center; top:68px">
             <div class="iblock">
               <img
@@ -317,7 +324,7 @@ export default {
 
 <style scoped>
 .router-link-active {
-  color: #105cfb;
+  color: #f6c624;
 }
 .index_top_btn {
   display: flex;
