@@ -2,14 +2,15 @@
   <div class="slide" >
        <div class="s_tj">
              <div class="s_dtkTit">统计信息</div>
-             <div class="sdtkItem">科目名称：{{results.subjectName}}</div>
-             <div class="sdtkItem">单元：{{results.subjectUnitList}}</div>
-             <div class="sdtkItem">开始时间：{{results.createTime}}</div>
-             <div class="sdtkItem">题目数量：{{results.total}}</div>
-             <div class="sdtkItem">已答：{{results.total-results.noAnswer}}</div>
-             <div class="sdtkItem s_gr">正确：{{results.trueNum}}</div>
-             <div class="sdtkItem s_red">错误：{{results.wrongNum}}</div>
-             <div class="sdtkItem">未答：{{results.noAnswer}}</div>
+             <span class="sdtkItem">科目名称：{{results.subjectName}}</span>
+             <span class="sdtkItem">单元：{{results.subjectUnitList}}</span>
+             <span class="sdtkItem">开始时间：{{results.createTime}}</span>
+             <div style="margin:10px"></div>
+             <span class="sdtkItem">题目数量：{{results.total}}</span>
+             <span class="sdtkItem">已答：{{results.total-results.noAnswer}}</span>
+             <span class="sdtkItem s_gr">正确：{{results.trueNum}}</span>
+             <span class="sdtkItem s_red">错误：{{results.wrongNum}}</span>
+             <span class="sdtkItem">未答：{{results.noAnswer}}</span>
         </div>
         <div class="s_dtk">
              <div class="s_dtkTit">答题卡</div>
@@ -165,5 +166,8 @@ export default {
     margin: 5px;
     font-size: 12px;
     cursor: pointer;
+}
+.sdtkItem{
+    margin: 10px 20px;
 }
 </style>

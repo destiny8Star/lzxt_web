@@ -32,7 +32,7 @@
                             </div>
                         </el-card> -->
                          <div class="contBox"  v-loading="searchState">
-                            <el-card style="margin: 20px 0;max-width:60%" >
+                            <el-card style="margin: 20px 0;width:100%" >
                                 <div class="card_inTit">
                                     {{progress}}、 {{topic.topicTitle}}
                                 </div>
@@ -41,8 +41,15 @@
                                         <img :src="item" alt="">
                                     </div>
                                 </div>
-                              
-                                <el-radio-group v-model="answer">
+                                <!-- 填空题 -->
+                                 <div v-if="topic.topicType == 0">
+                                        <div v-for="(inpI,indI) in topic.fillBlankTopicChoice" :key="indI" class="inpBox">
+                                           ({{indI+1}})、
+                                           <el-input placeholder="请输入答案" v-model="inpIbox[indI]" :disabled="topic.pstatus?true:false"></el-input>
+                                        </div>
+                                </div>
+                                <!-- 单选题 -->
+                                <el-radio-group v-model="answer" v-if="topic.topicType == 1">
                                     <el-radio :label="Object.keys(itemIn)[0]" v-for="(itemIn,index) in topic.radioChoice" :key="index"
                                     :disabled="topic.pstatus?true:false">
                                          {{Object.keys(itemIn)[0]}}、
@@ -51,11 +58,58 @@
                                          :key="indImg" class="img-radio">
                                     </el-radio>
                                 </el-radio-group>
-                               <!-- progress<results.progress -->
+                               <!-- 多选题 -->
+                                <div v-if="topic.topicType == 2">
+                                    <el-checkbox-group v-model="answer2">
+                                        <el-checkbox  v-for="(itemIn,index) in topic.mulChoice" :key="index" :label="Object.keys(itemIn)[0]"
+                                        :disabled="topic.pstatus?true:false">
+                                            {{Object.keys(itemIn)[0]}}、
+                                            {{Object.values(itemIn)[0].content }}
+                                            <img :src="itemImg" alt="" v-for="(itemImg,indImg) in Object.values(itemIn)[0].imageList"
+                                            :key="indImg" class="img-radio">
+                                         </el-checkbox>
+                                    </el-checkbox-group>
+
+                                   
+                                </div>
+                               <!-- 问答题 -->
+                                <div v-if="topic.topicType == 3">
+                                        <div  class="inpBox">
+                                           <el-input type="textarea" :rows="3" placeholder="请输入答案" v-model="answer" :disabled="topic.pstatus?true:false"></el-input>
+                                        </div>
+                                </div>
+                               <!-- 判断题 0为真，1为假-->
+                                <el-radio-group v-model="answer" v-if="topic.topicType == 4">
+                                    <el-radio label="0" :disabled="topic.pstatus?true:false">对</el-radio>
+                                    <el-radio label="1" :disabled="topic.pstatus?true:false">错</el-radio>
+                                </el-radio-group>
+                               
                                 <div style="margin:20px 0" v-if="topic.pstatus&&topic.pstatus!=0">
-                                   <span class="hasAnswer" :class="topic.pstatus==1?'red-color':'suc-color' ">你的答案：{{topic.userAnswer}}</span>
+                                    <div class="hasAnswer2" :class="topic.pstatus==1?'red-color':'suc-color'" v-if="topic.topicType==0">
+                                       你的答案：
+                                       <div v-for="(aitem,aint) in uinpBox" :key="aint">
+                                            <div v-if="aitem">({{aint+1}})、{{aitem}}</div>
+                                       </div>
+                                   </div>
+                                   <span class="hasAnswer" :class="topic.pstatus==1?'red-color':'suc-color' " v-if="topic.topicType==1||topic.topicType==2||topic.topicType==3">
+                                       你的答案：{{topic.userAnswer}}
+                                   </span>
+                                   <span class="hasAnswer" :class="topic.pstatus==1?'red-color':'suc-color' " v-if="topic.topicType==4">
+                                       你的答案：{{topic.userAnswer==0?"对":"错"}}
+                                    </span>
                                    <span class="hasAnswer" :class="topic.pstatus==1?'red-color':'suc-color' ">结果：{{topic.pstatus==1?'错误':'正确'}}</span>
-                                   <span class="hasAnswer">正确答案：{{topic.answer}}</span>
+                                   <div class="hasAnswer2" v-if="topic.topicType==0">
+                                       正确答案：
+                                       <div v-for="(aitem,aint) in topic.fillBlankAnswer" :key="aint">
+                                          ({{aint+1}})、{{aitem.content}}
+                                       </div>
+                                   </div>
+                                   <span class="hasAnswer" v-if="topic.topicType==1||topic.topicType==2||topic.topicType==3">
+                                       正确答案：{{topic.answer}}
+                                   </span>
+                                   <span class="hasAnswer" v-if="topic.topicType==4">
+                                       正确答案：{{topic.answer==0?"对":"错"}}
+                                   </span>
                                 </div>   
                                 <div>
                                     <el-button type="primary" @click="goback" :disabled="progress<=1">上一题</el-button>
@@ -63,7 +117,7 @@
                                 </div>
                                
                             </el-card>
-                            <el-card style="margin: 20px 0;width:39%;background:#EBEEF5" >
+                            <el-card style="margin: 20px 0;background:#EBEEF5" >
                                 <SlideRecord :progressAll="progressAll" @jumpTo="jumpTo"></SlideRecord>
                             </el-card>
                         </div>
@@ -90,10 +144,16 @@
         },
         data(){
             return {
+                // 体类型： 0:填空题 ,1：单选题,2:多选题,3:问答题,4:判断题
                 searchState:false,
                 info:"",//课程
                 topic:{},//题数据
-                answer:"",//答案
+
+                answer:"",//单选，判断答案
+                answer2:[],//多选答案
+                inpIbox:{},//填空答案
+                uinpBox:[],//填写的填空答案
+
                 results:{},//接口所有信息
                 progress:0,//当前在第几道提上
                 progressAll:0,//进度
@@ -122,16 +182,36 @@
             },
             //下一
             toNext(){
-              console.log("this",this.results,this.topic)
+              console.log("this",this.results,this.topic,this.answer,this.answer2,this.inpIbox[0])
                if(!this.topic.pstatus){
-                   if(this.answer.trim()=='')return this.$message("请填写答案")
+                   let answer = "";
+                   if(this.topic.topicType==1||this.topic.topicType==3||this.topic.topicType==4){
+                         if(this.answer.trim()=='')return this.$message("请填写答案")
+                         answer = this.answer
+                   }else if(this.topic.topicType==2){
+                         if(this.answer2.length==0)return this.$message("请选择答案")
+                         this.answer2.forEach(e => {
+                             answer += e+","
+                         });
+                        console.log("answer",answer)
+
+                   }else if(this.topic.topicType==0){
+                        for(let i = 0;i < this.topic.fillBlankTopicChoice;i++){
+                            if(this.inpIbox[i] == undefined || this.inpIbox[i].trim() == ''){
+                                return this.$message("请填写答案")
+                            }else{
+                                answer+=this.inpIbox[i]+'$#$'
+                            }
+                        }
+                        console.log("answer",answer)
+                   }
                    let data = {
                         "practiceId":this.results.practiceId,
                         "topicId":this.topic.id,
-                        "answer":this.answer
+                        "answer":answer
                     }
                     this.commit(data)
-                   console.log("去提交")
+                   console.log("去提交",data)
                }else{
                     let page = ++this.progress
                     let data = {
@@ -154,12 +234,17 @@
             jump(data){
                 this.searchState = true
                 this.answer = ""
+                this.uinpBox = []
                 this.$axios.post('/topic/jump',data)
                 .then(res => {
                     console.log("获取",res);
                     this.searchState = false;
                     this.topic = res.data.result.topic;
                     this.progressAll = res.data.result.progress;
+                    if(this.topic.topicType==0&&this.topic.pstatus&&this.topic.pstatus!=0){
+                        console.log("天空答案",this.topic.userAnswer)
+                        this.uinpBox = this.topic.userAnswer.split("$#$")
+                    }
                 })
                 .catch((rej) => {
                     console.log("获取数据失败",rej)
@@ -175,6 +260,8 @@
                     console.log("获取",res);
                     this.searchState = false;
                     this.answer = ""
+                    this.answer2 = []
+                    this.inpIbox = {}
                     let info =  {
                     "page":this.progress,
                     "practiceId":this.results.practiceId
@@ -216,6 +303,10 @@
                     this.progress = res.data.result.progress
                     this.progressAll = res.data.result.progress
                     this.$set(this,"results",res.data.result)
+                    if(this.topic.topicType==0&&this.topic.pstatus&&this.topic.pstatus!=0){
+                        console.log("天空答案",this.topic.userAnswer)
+                        this.uinpBox = this.topic.userAnswer.split("$#$")
+                    }
                 })
                 .catch((rej) => {
                     console.log("获取数据失败",rej)
@@ -321,5 +412,13 @@
     }
     .hasAnswer{
         margin-right: 30px;
+    }
+    .hasAnswer2{
+        margin: 10px;
+    }
+    .inpBox{
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
     }
 </style>

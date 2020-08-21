@@ -59,6 +59,14 @@
               <div class="card_inTit">{{ind+1}}、{{item.topic.topicTitle}}</div>
               <!-- <el-radio-group v-model="from['radio'+ind]"> -->
                   <!-- :label="Object.keys(itemIn)[0]" -->
+                <!-- 填空题 -->
+                <div v-if="item.topic.topicType == 0">
+                  <div v-for="(inpI,indI) in item.topic.fillBlankTopicChoice" :key="indI" class="inpBox">
+                      ({{indI+1}})、
+                      <el-input placeholder="请输入答案" disabled></el-input>
+                  </div>
+              </div>
+              <!-- 单选题 -->    
               <el-radio-group v-if="item.topic.topicType==1">
                 <el-radio
                   v-for="(itemIn,index) in item.topic.radioChoice"
@@ -70,9 +78,52 @@
                   :key="indImg" class="img-radio">
                 </el-radio>
               </el-radio-group>
+              <!-- 多选题 -->
+              <div v-if="item.topic.topicType == 2">
+                  <el-checkbox-group >
+                      <el-checkbox  v-for="(itemIn,index) in item.topic.mulChoice" :key="index" disabled>
+                          {{Object.keys(itemIn)[0]}}、
+                          {{Object.values(itemIn)[0].content }}
+                          <img :src="itemImg" alt="" v-for="(itemImg,indImg) in Object.values(itemIn)[0].imageList"
+                          :key="indImg" class="img-radio">
+                        </el-checkbox>
+                  </el-checkbox-group>
+              </div>
+              <!-- 问答题 -->
+              <div v-if="item.topic.topicType == 3">
+                  <div  class="inpBox">
+                      <el-input type="textarea" :rows="3" placeholder="请输入答案" disabled></el-input>
+                  </div>
+              </div>
+              <!-- 判断题 0为真，1为假-->
+              <el-radio-group v-if="item.topic.topicType == 4">
+                  <el-radio  disabled>对</el-radio>
+                  <el-radio  disabled>错</el-radio>
+              </el-radio-group>
+
+
               <div class="card_bot">
-                <span class="card_botItem card_botItem_fai">你的答案：{{item.errorAnswer}}</span>
-                <span class="card_botItem card_botItem_suc">正确答案：{{item.topic.answer}}</span>
+                <span class="card_botItem card_botItem_fai" v-if="item.topic.topicType==0">
+                  你的答案：{{item.errorAnswer | formatData}}
+                </span>
+                <span class="card_botItem card_botItem_fai" v-if="item.topic.topicType==1||item.topic.topicType==2||item.topic.topicType==3">
+                  你的答案：{{item.errorAnswer}}
+                </span>
+                <span class="card_botItem card_botItem_fai" v-if="item.topic.topicType==4">
+                  你的答案：{{item.errorAnswer==0?"对":"错"}}
+                </span>
+                <div class="hasAnswer2 card_botItem_suc card_botItem" v-if="item.topic.topicType==0">
+                    正确答案：
+                    <div v-for="(aitem,aint) in item.topic.fillBlankAnswer" :key="aint">
+                      ({{aint+1}})、{{aitem.content}}
+                    </div>
+                </div>
+                <span class="card_botItem card_botItem_suc" v-if="item.topic.topicType==1||item.topic.topicType==2||item.topic.topicType==3">
+                  正确答案：{{item.topic.answer}}
+                </span>
+                <span class="card_botItem card_botItem_suc" v-if="item.topic.topicType==4">
+                    正确答案：{{item.topic.answer==0?"对":"错"}}
+                </span>
                 <span class="card_botItem">错误时间：{{item.errorTime}}</span>
                 <span class="card_botItem">错误次数：{{item.errorCount}}</span>
               </div>
@@ -80,14 +131,14 @@
             <template>
                 <div class="block" style="text-align: center;margin-top: 30px;">
                     <el-pagination @size-change="handleSizeChange"
-                                    @current-change="jumpPagination"
-                                    @prev-click="prevClick"
-                                    @next-click="nextClick"
-                                    :current-page="pagination.currentPage"
-                                    :page-sizes="pagination.pageCount"
-                                    :page-size="pagination.pageSize"
-                                    layout="total, sizes, prev, pager, next, jumper"
-                                    :total="pagination.total">
+                        @current-change="jumpPagination"
+                        @prev-click="prevClick"
+                        @next-click="nextClick"
+                        :current-page="pagination.currentPage"
+                        :page-sizes="pagination.pageCount"
+                        :page-size="pagination.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="pagination.total">
                     </el-pagination>
                 </div>
               </template>
@@ -112,12 +163,12 @@ export default {
       list: [], //题数据
       subjects: [
         //科目列表
-        {
-          id: 0,
-          subjectGrade: "全部",
-          subjectName: "全部",
-          subjectTerm: "全部"
-        },
+      {
+        id: 0,
+        subjectGrade: "全部",
+        subjectName: "全部",
+        subjectTerm: "全部"
+      },
       
       ],
       grades: [
@@ -170,12 +221,26 @@ export default {
       }
     };
   },
+  //过滤填空题答案
+  filters:{
+      formatData(data){
+        let newData = data.split("$#$")
+        let format = "";
+        newData.forEach((e,i) => {
+           if(e!=""){
+            format +=`(${i+1})`+e+" "
+           }
+        });
+        return format
+      }
+  },
   methods: {
     /**
      * 分页跳转【当前页】
      */
     jumpPagination(val) {
       console.log(val);
+      this.pagination.currentPage = val;
       this.postData.page = val;
       this.getData();
     },
@@ -204,7 +269,7 @@ export default {
       this.pagination.size = this.postData.size = val;
       this.getData();
     },
-    //    查询
+    // 查询
     submitForm() {
       console.log("this.fomr", this.postData);
       this.postData.page = 1;
@@ -249,7 +314,6 @@ export default {
     // 获取信息
     this.getData();
     this.getSubjects();
- 
   }
 };
 </script>
@@ -283,6 +347,9 @@ export default {
 }
 .card_botItem {
   margin: 0 20px;
+}
+.hasAnswer2{
+  margin: 10px 20px;
 }
 .card_botItem_suc {
   color: #67c23a;
