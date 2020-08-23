@@ -157,7 +157,7 @@
       
         <!-- 登陆 -->
         <div class="ban_news blank" v-show="selLogin">
-            <h3 class="ban_newsTit" style="border-bottom:0" @click="outLogin"> <<  返回 </h3>
+            <h3 class="ban_newsTit" style="border-bottom:0" @click="outLogin">   返回 </h3>
             <!-- <h5 class="loginTit">手机扫码，安全登陆</h5>  -->
             <div class="login_qr">
               <iframe :src="qrcode" frameborder="0"></iframe>
@@ -390,8 +390,10 @@ export default {
 .info_left{
    height: 400px;
     width:500px;
-    background: #f5f5f5;
+    background: #fff;
     margin-right: 50px;
+    box-shadow: 0 10px 10px 0 #f5f5f5;
+    border-radius: 10px;
 }
 .info_left img{
   width: 100%;
@@ -402,7 +404,9 @@ export default {
     width: 500px;
     color:#333;
     padding: 30px;
-    background: #f5f5f5;
+    background: #fff;
+    box-shadow: 0 10px 10px 0 #f5f5f5;
+      border-radius: 10px;
 }
 .info_right_top{
   width: 100%;

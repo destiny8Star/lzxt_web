@@ -3173,10 +3173,12 @@ ul {
 }
 
 .news-item {
-    margin-bottom: 40px;
-    height: 140px;
+    padding-bottom: 40px;
+    /* height: 140px; */
     position: relative;
-    padding-left: 282px
+    margin-bottom: 40px;
+    padding-left: 282px;
+    border-bottom:1px solid #f5f5f5
 }
 
 .news-img {

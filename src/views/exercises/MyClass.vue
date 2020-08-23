@@ -12,20 +12,23 @@
                         <!-- <div class="home-title" >
                            <span class="home-title-t ly-title">初一历史（上）</span>
                         </div> -->
-                         <el-card style="margin: 20px 0" v-for="(item,ind) in  list" :key="ind" >
+                         <el-card class='Ycard' style="margin: 20px 0" v-for="(item,ind) in  list" :key="ind" >
                             <div class="item_top">
-                                <div class="item_tit">
+                                <div class="item_tit" style='font-size:14px;font-weight: bold;'>
                                     {{item.courseName}}
+                                </div>
+                            </div>
+                            <div class='Ycardone'>
+                                <div class="item_bot">
+                                    <div class="col_tit" v-if="item.status == 1">状态：有效</div>
+                                    <div class="col_tit color-red" v-if="item.status == 2">状态：已过期</div>
+                                    <div class="col_time">购买时间：{{item.buyTime}}</div>
+                                    <div class="col_time">到期时间：{{item.expireTime}}</div>
+                                    <div class="col_num">练习次数：{{item.studyCount}}</div>
                                 </div>
                                 <el-button type="primary" @click="toExe(item)" :disabled="item.status==2">进入</el-button>
                             </div>
-                            <div class="item_bot">
-                                <div class="col_tit" v-if="item.status == 1">状态：有效</div>
-                                <div class="col_tit color-red" v-if="item.status == 2">状态：已过期</div>
-                                <div class="col_time">购买时间：{{item.buyTime}}</div>
-                                <div class="col_time">到期时间：{{item.expireTime}}</div>
-                                <div class="col_num">练习次数：{{item.studyCount}}</div>
-                            </div>
+                           
                         </el-card>
                     </div>
                 </div>
@@ -82,6 +85,22 @@
 </script>
 
 <style scoped>
+    .Ycardone{
+        padding-top:30px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .item_tit{
+        background: #ab54fb;
+        color:#fff;
+        border-radius: 0 0 8px 8px;
+        padding:8px 15px;
+        position:absolute;
+        top:-20px
+    }
+    .Ycard{
+        position: relative;
+    }
     .el-date-editor--datetimerange {
         width: 240px!important;
         margin-top: 4px;

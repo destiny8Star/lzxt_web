@@ -35,11 +35,11 @@
                                     <div class="card_inType">自购买之日起{{item.orderTime}}日内，该课程可使用。</div>
                                     <div class="card_inType">价格：{{item.coursePrice}}元</div>
                                     <div class="card_mask_inBot" v-if="item.buy">
-                                        <el-button type="primary" @click="toExe(item)">练习</el-button>
+                                        <el-button type="primary" style="background:#fcde7b;color:#333" @click="toExe(item)">练习</el-button>
                                     </div>
                                     <div class="card_mask_inBot" v-else>
-                                        <el-button type="primary" @click="toExe(item)">试用</el-button>
-                                        <el-button type="success" @click="commitOrder(item.id)">购买</el-button>
+                                        <el-button type="primary" style="background:#fcde7b;color:#333" @click="toExe(item)">试用</el-button>
+                                        <el-button type="primary" @click="commitOrder(item.id)">购买</el-button>
                                     </div>
                                 </div>
                             </el-card>
@@ -153,7 +153,7 @@
         margin-bottom: 10px;
     }
     .card_inType{
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 5px;
     }
     .card_inBot{
@@ -167,7 +167,7 @@
     }
     .card_inBot_right{
         border:1px solid #105CFB;
-        color: #105CFB;
+        color: #fcde7b;
         padding: 5px 20px;
         border-radius: 8px;
         cursor: pointer;
@@ -187,7 +187,7 @@
         float: none;
     }
     .card_mask{
-        background: rgba(92,48,125, 1);
+        background: #ab54fb;
         position: absolute;
         top: 0;
         left: 0;

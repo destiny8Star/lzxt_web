@@ -9,23 +9,40 @@
       <div class="main-content" id="main-content" :style="{height: (getWinHeight-120)+'px'}">
         <div class="main-feature">
           <div class="main-inner" v-loading="searchState">
-            <el-card style="margin: 20px 0" v-for="item in list" :key="item.id">
+            <el-card class='Ycard' style="margin: 20px 0" v-for="item in list" :key="item.id">
                 <div class="item_top">
-                    <div class="item_tit">
+                    <div class="item_tit" style='font-size:14px;font-weight: bold;'>
                       {{item.subjectName}} 
-                      <span style="font-size:14px;color:#909399;margin:0 30px">单元: {{item.subjectUnitList}}</span>
+                      <!-- <span style="font-size:14px;color:#909399;margin:0 30px">单元: {{item.subjectUnitList}}</span>
                        <span style="color:#5c307d ;font-size:16px;" v-if="item.historyStatus==1" >未完成</span>
                        <span style="color:#5c307d ;font-size:16px;" v-if="item.historyStatus==3" >已取消</span>
-                       <span style="color:#67c23a;font-size:16px;" v-if="item.historyStatus==2">已完成</span>
+                       <span style="color:#67c23a;font-size:16px;" v-if="item.historyStatus==2">已完成</span> -->
                     </div>
                     
-                     <el-button type="primary" @click="toExe(item)" :disabled="item.status==1||item.historyStatus==3">{{item.historyStatus==1?"继续学习":item.historyStatus==2?"查看":"已取消"}}</el-button>
+                     
                 </div>
-                <div class="item_bot">
-                    <div class="col_tit" :style="{color:item.status==1?'#F56C6C':''}">状态：{{item.status==1?"已过期":"有效"}}</div>
-                    <div class="col_time">开始时间：{{item.createTime}}</div>
-                    <div class="col_time">完成时间：{{item.finishTime? item.finishTime:"--" }}</div>
+                <div class='Ycardone'>
+
+                  <div class="item_bot">
+                    <div>
+                      <div class="col_tit" :style="{color:item.status==1?'#F56C6C':''}">状态：{{item.status==1?"已过期":"有效"}}</div>
+                      <div class="col_tit" :style="{color:item.status==1?'#F56C6C':''}">单元: {{item.subjectUnitList}}</div>
+                    </div>
+                    <div>
+                      <div class="col_time">开始时间：{{item.createTime}}</div>
+
+                     <div class="col_time">完成时间：{{item.finishTime? item.finishTime:"--" }}</div>
+
+                    </div>
+                    <div style='margin-left: 20px;'>
+                      <div style="color:#ab54fb;font-size:14px;" v-if="item.historyStatus==1" >未完成</div>
+                       <div style="color:#5c307d ;font-size:14px;" v-if="item.historyStatus==3" >已取消</div>
+                       <div style="color:#67c23a;font-size:14px;" v-if="item.historyStatus==2">已完成</div>
+                    </div>
+                  </div>
+                  <el-button type="primary" style='background:#fcde7b;border:0;color:#333;font-weight:600' @click="toExe(item)" :disabled="item.status==1||item.historyStatus==3">{{item.historyStatus==1?"继续学习":item.historyStatus==2?"查看":"已取消"}}</el-button>
                 </div>
+              
             </el-card>
           </div>
         </div>
@@ -87,6 +104,23 @@ export default {
 </script>
 
 <style scoped>
+  .Ycardone{
+        padding-top:30px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .item_tit{
+        background: #ab54fb;
+        color:#fff;
+        border-radius: 0 0 8px 8px;
+        padding:8px 15px;
+        position:absolute;
+        top:-20px
+    }
+    .Ycard{
+        position: relative;
+        
+    }
 .el-date-editor--datetimerange {
   width: 240px !important;
   margin-top: 4px;
@@ -105,6 +139,7 @@ export default {
   float: none;
 }
 .col_tit {
+  width:200px;
   color: #67c23a;
   margin-right: 20px;
 }

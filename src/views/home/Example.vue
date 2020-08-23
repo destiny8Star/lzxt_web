@@ -134,11 +134,11 @@ export default {
   background: #eee;
 }
 .tabItem:hover{
-  background:#5c307d ;
+  background:#ab54fb ;
   color: #fff;
 }
 .selitem{
-   background:#5c307d ;
+   background:#ab54fb ;
    color: #fff;
 }
 </style>
