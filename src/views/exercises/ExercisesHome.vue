@@ -143,7 +143,7 @@
     .card_in{
          width: 300px; 
          margin: 20px;
-         background: #efefef;
+         background: #f5e4ad;
          position: relative;
     }
   

@@ -26,7 +26,7 @@
                                     <div class="col_time">到期时间：{{item.expireTime}}</div>
                                     <div class="col_num">练习次数：{{item.studyCount}}</div>
                                 </div>
-                                <el-button type="primary" @click="toExe(item)" :disabled="item.status==2">进入</el-button>
+                                <el-button type="primary" style='background:#fcde7b;border:0;color:#333;font-weight:600' @click="toExe(item)" :disabled="item.status==2">进入</el-button>
                             </div>
                            
                         </el-card>

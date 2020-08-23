@@ -6,12 +6,15 @@
       <el-breadcrumb-item>资讯详情</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="read-details" >
-        <div class="read-details-title">{{infos.title}}</div>
-        <div class="read-details-time">{{infos.author}} | {{infos.createTime}}</div>
-        <div class="read-details-img" :style="'background-image:url('+infos.imageUrl+')'">
+        <div class='YnewsDetail'>
+          <div class="read-details-title">{{infos.title}}</div>
+          <div class="read-details-title" style='font-size:18px'>{{infos.summary}}</div>
+          <div class="read-details-time">作者：{{infos.author}}  |  {{infos.createTime}}</div>
+         </div>
+        <!-- <div class="read-details-img" :style="'background-image:url('+infos.imageUrl+')'"> -->
           <!-- <img :src="infos.imageUrl" alt=""> --> 
-        </div>
-        <div class="read-details-content">{{infos.content}}</div>
+        <!-- </div> -->
+        <div v-html="infos.content" class="read-details-content"></div>
     </div>
   </div>
 </template>
@@ -43,26 +46,33 @@ export default {
 .el-breadcrumb__item {
   float: none;
 }
+.YnewsDetail{
+  width:1200px;
+  margin:0 auto;
+  background-image: url(../../assets/imgs/3-1title.png);
+   background-size: cover;
+ background-position: center;
+ border-radius: 15px;
+ padding:15px 20px;
+}
 .read-details{
   width: 100%;
   padding: 30px;
   overflow: hidden;
 }
 .read-details-title {
-  font-size: 36px;
-  color: #353535;
+  font-size: 24px;
+  color: #fff;
   font-weight: 500;
-  line-height: 50px;
-  text-align: center;
 }
  .read-details-time {
   font-size: 14px;
-  color: #b2b2b2;
-  margin: 16px 0 39px;
-  text-align: center;
+  color: #fff;
   /* margin-right: 200px; */
 }
 .read-details .read-details-content {
+  margin:30px auto;
+  width:720px;
   color: #353535;
   font-size: 16px;
 }
