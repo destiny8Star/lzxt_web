@@ -435,7 +435,9 @@ body {
 .first-nav .el-menu-item.is-active>a {
     color: #409eff;
 }
-
+.el-menu--horizontal>.el-menu-item.is-active {
+    color:#ab54fb!important
+}
 
 /* .first-nav .el-menu-item.is-active{
 	border-left: 3px solid #409EFF;
