@@ -1,4 +1,4 @@
-import Vue from 'vue'
+﻿import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import homeRouter from './router/homeRouter'
@@ -6,7 +6,7 @@ import exeRouter from './router/exeRouter'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes: [{
             path: '*',
             name: '404',
