@@ -20,6 +20,20 @@
                 <i class="iconfont iconicon_minprogram EC1"></i>
                 小程序课堂
               </router-link>
+              <router-link
+                to="/home"
+                class="product-multi-item"
+               >
+                <i class="iconfont iconicon_minprogram EC1"></i>
+                小程序
+              </router-link>
+              <router-link
+                to="/home"
+                class="product-multi-item"
+               >
+                <i class="iconfont iconicon_h EC1"></i>
+                APP
+              </router-link>
             </div>
             <div class="product-item">
               <div class="product-item__title">习题练习</div>
@@ -87,31 +101,30 @@
           </div>
         </div> -->
       </div>
-      <div class="btns index_top_btn">
+      <div class="btns index_top_btn" v-show="!isLogin">
         <!-- 企学院企业微信独立页面右侧按钮显示跳转注册链接 -->
          <div class="login-btn SmallBtnType1" @click="toLogin">
            <img src="../assets/imgs/login.png" style='margin-right:5px' alt="">
            <div>登录</div>
            
           </div>
-        <div to="/free" class="SmallBtnType1" @click="toLogin">
-          <img src="../assets/imgs/shiyong.png" style='margin-right:5px' alt="">
-          免费试用
-        </div>
-        <div class="header-Qr">
+          <div to="/free" class="SmallBtnType1" @click="toLogin">
+            <img src="../assets/imgs/shiyong.png" style='margin-right:5px' alt="">
+            免费试用
+          </div>
+
+          <div class="ban_news blank" v-show="selLogin">
+              <h5 class="ban_newsTit" style="border-bottom:0;line-height:1;font-size:18px;margin-left:20px" @click="outLogin"> 取消 </h5>
+              <div class="login_qr">
+                <iframe :src="qrcode" frameborder="0"></iframe>
+              </div>
+          </div>
+        <!-- <div class="header-Qr">
           <span style="line-height:40px;">
             <i class="iconfont iconicon_minprogram EC1"></i>
           </span>
           <div style='font-size:12px'>小程序</div>
-          <div class="tip-pop" style=" width: 370px; left: -178px; text-align: center; top:68px">
-            <div class="iblock">
-              <img
-                src="http://img.jyeoo.net/images/root/wxPS.jpg"
-                alt
-                style="width:172px;height:172px;"
-              />
-              <div>菁优网拍搜</div>
-            </div>
+          <div class="tip-pop" style=" width: 200px; left: -100px; text-align: center; top:68px">
             <div class="iblock">
               <img
                 src="http://img.jyeoo.net/images/root/wxSJ.jpg"
@@ -121,9 +134,9 @@
               <div>菁优网资源中心</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
-         <div class="header-Qr">
+         <!-- <div class="header-Qr">
           <span style="line-height:40px;">
             <i class="iconfont iconicon_h EC1"></i>
           </span>
@@ -137,9 +150,8 @@
               />
               <div>菁优网拍搜</div>
             </div>
-           
           </div>
-        </div>
+        </div> -->
         
       </div>
     </div>
@@ -156,13 +168,12 @@
         </el-carousel>
       
         <!-- 登陆 -->
-        <div class="ban_news blank" v-show="selLogin">
+        <!-- <div class="ban_news blank" v-show="selLogin">
             <h3 class="ban_newsTit" style="border-bottom:0" @click="outLogin">   返回 </h3>
-            <!-- <h5 class="loginTit">手机扫码，安全登陆</h5>  -->
             <div class="login_qr">
               <iframe :src="qrcode" frameborder="0"></iframe>
             </div>
-        </div>
+        </div> -->
   </div>
     <!-- 最新资讯 -->
   <div class="infoBox" v-show="isNews">
@@ -203,11 +214,11 @@ export default {
   name: "NewHeader",
   data() {
     return {
+         isLogin:false,//是否登陆
          showDiv:true,//是否展示省市区
          banners:[
-             "http://wechatapppro-1252524126.file.myqcloud.com/apprnDA0ZDw4581/image/14636c07d7b757fb9aed83d83e8d8507.jpg",
-             "http://wechatapppro-1252524126.file.myqcloud.com/apprnDA0ZDw4581/image/f9aea2c4238273f523bd6aa1aa0cff5c.png",
-             "http://wechatapppro-1252524126.file.myqcloud.com/apprnDA0ZDw4581/image/91a54fd87ee04cc6c960c56c3f65734a.jpg"
+             require("@/assets/image/ban1.png"),
+             require("@/assets/image/ban2.png"),
          ],
          selTabs:1,//新闻当前选中
          qrcode:"",//二维码地址
@@ -319,12 +330,23 @@ export default {
             this.$message.error(rej.data.message||"网络异常")
         });
     },
+    isLoginHand(){
+        this.$axios.post('/user/userInfo' ).then(res => {
+                console.log("获取数据登陆",res);
+                this.isLogin = true
+            })
+            .catch((rej) => {
+                console.log("获取登陆数据失败",rej)
+                this.isLogin = false
+            });
+    }
   },
   mounted() {
-       console.log(this.$route)
+       console.log("222",this.$route)
        this.selArr = this.tkArr
        this.getQrcode()
        this.getNews()
+       this.isLoginHand()
     //   if(this.$route.meta.menu_name == "首页"){
     //      this.showDiv=false 
     //   }
@@ -417,15 +439,15 @@ export default {
 
 }
 .ban_news{
-    height: 500px;
-    width: 530px;
+    height: 450px;
+    width: 430px;
     background: rgb(14, 89, 251,0.7);
     position: absolute;
-    bottom:0;
-    right:100px;
-    z-index: 5;
+    top:70px;
+    right:0;
+    z-index: 15;
     color:#fff;
-    padding: 30px;
+    padding: 10px;
 }
 .ban_news.blank{
   background: #fff;
@@ -472,11 +494,19 @@ export default {
   width: 400px;
   height: 400px;
   background: #fff;
-  margin: 30px auto 0 ;
+  margin: 10px auto 0 ;
 }
 iframe{
   width: 100%;
   height: 100%;
+}
+.impowerBox{
+ width: 100px!important;
+}
+            
+>>>.impowerBox .qrcode{
+  width: 100px!important;
+  height: 100px!important;
 }
 
 </style>

@@ -9,14 +9,10 @@
 			</div>
 		</div>
 		<div class="tool">
-				<div style="color:#105CFB;" @click="showAdd">
+				<!-- <div style="color:#105CFB;" @click="showAdd">
 					<i class="el-icon-location-information"></i>
 					{{address}}
-					<!-- <el-cascader
-						v-model="value"
-						:options="options"
-						@change="handleChange"></el-cascader> -->
-				</div>
+				</div> -->
 			
 			<div class="tool-msg">
 <!--				<img src="../assets/img/tx.png" class="logo-img">-->

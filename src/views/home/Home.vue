@@ -69,20 +69,14 @@
     </div>
     <!-- //合作商 -->
     <div class="home_swiper">
-      <swiper ref="mySwiper" :options="swiperOptions">
-        <swiper-slide v-for="(item,ind) in swiperItem " :key="ind">
-          <div class="home_swiperItem" @mouseover="sOverHand" @mouseout="sOutHand">
-            <div class="sImg">
-              <img :src="item.img" alt />
-            </div>
-            {{item.name}}
-          </div>
-        </swiper-slide>
-      </swiper>
-      <!-- <div class="swip_bot">
-        更多
-        <i class="iconfont iconarrow-right"></i>
-      </div> -->
+        <div class="home_swiperItem" v-for="(item,ind) in swiperItem" :key="ind">
+        <div class="sImg">
+          <img :src="item.img" alt />
+        </div>
+        <!-- {{item.name}} -->
+      </div>
+     
+      <a  class="swip_bot MediumBtnType2">更多 <i class="iconfont iconarrow-right"></i></a>
     </div>
   </div>
 </template>
@@ -124,26 +118,30 @@ export default {
         {
           name: "啊速递的",
           img: require("../../assets/image/s5.png")
-        }
+        },
+         {
+          name: "儿童",
+          img: require("../../assets/image/s2.jpg")
+        },
+        {
+          name: "额外其他",
+          img: require("../../assets/image/s3.jpg")
+        },
+         {
+          name: "儿童",
+          img: require("../../assets/image/s2.jpg")
+        },
       ]
     };
   },
   methods: {
-    sOverHand() {
-      this.swiper.autoplay.stop();
-    },
-    sOutHand() {
-      this.swiper.autoplay.start();
-    }
+   
   },
   computed: {
-    swiper() {
-      return this.$refs.mySwiper.$swiper;
-    }
+  
   },
   mounted() {
-    console.log("Current Swiper instance object", this.swiper);
-    //   this.swiper.slideTo(3, 1000, false)
+   
   }
 };
 </script>
@@ -154,34 +152,36 @@ img {
   height: 100%;
 }
 .home_swiper {
-  width: 100%;
-  height: 400px;
-  padding: 0 30px;
+  width: 1200px;
   font-size: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
 }
-.swiper-container,
-.swiper-slide {
-  width: 100%;
-  height: 300px;
-}
+
 .home_swiperItem {
   width: 300px;
-  height: 300px;
-  padding-top: 30px;
+  height: 250px;
+  padding: 30px 7.5px 40px;
   text-align: center;
 }
 .sImg {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 20px;
+  width: 285px;
+  height: 180px;
+  margin: 0 auto;
 }
 .swip_bot {
-  margin-top: 30px;
+  margin-top: 10px;
   font-size: 20px;
   padding: 8px 30px;
   border-radius: 8px;
-  border: 1px solid #333;
+  border: 1px solid #f6c624;
   float: right;
   cursor: pointer;
+  /* align-self: flex-end;
+  align-content: flex-end; */
+  margin-left: auto;
+  display: block;
 }
 </style>
