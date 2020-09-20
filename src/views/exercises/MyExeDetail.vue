@@ -114,6 +114,8 @@
                                 <div>
                                     <el-button type="primary" @click="goback" :disabled="progress<=1">上一题</el-button>
                                     <el-button type="primary" @click="toNext" :disabled="(topic.pstatus&&results.total==progress)?true:false">{{topic.pstatus?"下一题":"提交"}} </el-button>
+                                    <el-button type="danger" @click="cancel" >取消</el-button>
+
                                 </div>
                                
                             </el-card>
@@ -171,6 +173,22 @@
             }
         },
         methods: {
+              // 取消
+            cancel(){
+
+              this.$axios.post('/topic/jump',{practiceId:this.results.practiceId})
+                .then(res => {
+                    console.log("取消",res);
+                    this.searchState = false;
+                    this.$message.success("取消成功")
+                    this.$router.go(-2)
+                })
+                .catch((rej) => {
+                    console.log("获取数据失败",rej)
+                    this.searchState = false;
+                    this.$message.error(rej.data.message||"网络异常")
+                });
+            },
              //上一题
             goback(){
                let page = --this.progress

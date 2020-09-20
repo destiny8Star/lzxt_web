@@ -101,6 +101,13 @@
           </div>
         </div> -->
       </div>
+       <div class="btns index_top_btn" v-show="isLogin">
+          <div class="login-btn SmallBtnType1" @click="toLogin">
+            <router-link to="/exercises" class="product-item__func">
+             习题练习
+            </router-link>
+          </div>
+       </div>
       <div class="btns index_top_btn" v-show="!isLogin">
         <!-- 企学院企业微信独立页面右侧按钮显示跳转注册链接 -->
          <div class="login-btn SmallBtnType1" @click="toLogin">
