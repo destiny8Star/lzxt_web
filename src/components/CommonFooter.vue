@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="free" v-if="showBan&&from!='back'">
+  <div style='margin-top:20px'>
+    <!-- <div class="free" v-if="showBan&&from!='back'">
       <el-carousel trigger="click" height="400px">
         <el-carousel-item v-for="(item,ind) in banners" :key="ind">
           <div class="i_banner_item">
@@ -8,7 +8,7 @@
           </div>
         </el-carousel-item>
       </el-carousel>
-    </div>
+    </div> -->
 
     <div class="bg161E30">
       <div class="footer">
@@ -44,7 +44,7 @@
               >知识付费</a>
             </dd>
             <dd>
-              <a class="footer-href" href="/corporateTraining" data-count="pc-底部导航_行业解决方案_ 企学院">企学院</a>
+              <a class="footer-href" href="/corporateTraining" data-count="pc-底部导航_行业解决方案_企学院">企学院</a>
             </dd>
             <dd>
               <a class="footer-href" href="/online_alive" data-count="pc-底部导航_场景解决方案_在线直播">在线直播</a>
